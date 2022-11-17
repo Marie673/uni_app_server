@@ -1,7 +1,7 @@
-#src
-##domain
+# src
+## domain
 ドメインレイヤー
-##infrastructure
+## infrastructure
 外部モジュールとの接続
-##routes
+## routes
 いわゆるアプリケーションレイヤー
