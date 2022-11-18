@@ -5,13 +5,16 @@ import {UserInfo} from "../../domain/user";
 const app = express()
 // TODO: 鍵をべた書きは良くない
 app.set( 'superSecret', 'vxvawwark8vpf4axz17k' )
+const jwtSecret = 'vxvawwark8vpf4axz17k'
+const jwtOptions = {
+    algorithm: 'HS256',
+    expiresIn: '24h',
+}
 
 // 認証パス
 // トークン生成
 export function generateToken(user_info: UserInfo) {
-    return jwt.sign(user_info, app.get('superSecret'),{
-        expiresIn: '24h'
-    })
+    return jwt.sign(user_info, jwtSecret, jwtOptions)
 }
 
 // jwtの整合性確認
@@ -21,7 +24,7 @@ export const authentication = ( req: express.Request, res: Response, next: expre
     if (!token) {
         return res.status(403).send({success: false, message: 'No token provided.'})
     }
-    jwt.verify(token, app.get('superSecret'), function (err: any, decoded: any) {
+    jwt.verify(token, jwtSecret, function (err: any, decoded: any) {
         if (err) {
             return res.json({success: false, message: 'Invalid token.'})
         }
@@ -37,7 +40,7 @@ export function extraction (req: express.Request): UserInfo | unknown {
         'name': "",
     }
     let token = req.body.token || req.query.token || req.headers['x-access-token']
-    jwt.verify(token, app.get('superSecret'), function (err: any, decoded: any) {
+    jwt.verify(token, jwtSecret, function (err: any, decoded: any) {
         if (err) {
             return err
         }
