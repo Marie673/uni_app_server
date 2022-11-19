@@ -7,7 +7,9 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - "./db_data:/var/lib/mysql"
+      - type: bind
+        source: "./data"
+        target: "/var/lib/mysql"
     environment:
       MARIADB_ROOT_PASSWORD: "password" # `root`ユーザのパスワード
       MARIADB_DATABASE: "testdb" # 初期化時に作成するデータベース
