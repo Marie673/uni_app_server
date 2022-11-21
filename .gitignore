@@ -4,3 +4,7 @@
 .Trash-*
 .nfs*
 
+# MySQL data
+db/data
+
+node_modules
