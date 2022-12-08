@@ -19,10 +19,31 @@
                     <% news.forEach(function(element)
                         {
                         %>
-                        <ul class="list-group">
+                        <ul class="list-group mt-2">
                             <li class="list-group-item">
-                                <%= element.title
+                                <h5 class="card-title">
+                                    <%= element.title
+                                        %>
+                                </h5>
+                                <p>
+                                    <%= element.content
+                                        %>
+                                </p>
+                                <span class="badge bg-primary"></span>
+                                <% for(var
+                                    i=0;
+                                    i<element.tag.length;
+                                    i++)
+                                    {
                                     %>
+                                    <span class="badge bg-primary"
+                                        style="font-size: 15px;">
+                                        <%= element.tag[i]
+                                            %>
+                                    </span>
+
+                                    <% }
+                                        %>
                             </li>
                         </ul>
                         <% });

@@ -40,7 +40,7 @@ AppDataSource.initialize()
                 news.author_id = 0
                 news.title = "Lorem ipsum"
                 news.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci sem, dictum id augue quis, pharetra mollis metus. Morbi rutrum id tellus vitae egestas. Nullam hendrerit, urna a cursus finibus, mi turpis hendrerit est, maximus egestas magna dolor fermentum massa. Duis sagittis bibendum neque, scelerisque ele"
-                news.tag = ["test"]
+                news.tag = ["test", "test2", "test3"]
                 news.datetime = new Date()
                 news.isPublished = true
 
