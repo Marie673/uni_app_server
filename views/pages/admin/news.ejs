@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <%- include('../../partials/admin/head');
+        %>
+</head>
+
+<body>
+    <%- include('../../partials/admin/header',
+        {
+        current: 'news'
+        });
+        %>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">現在表示中</h3>
+                    <% news.forEach(function(element)
+                        {
+                        %>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <%= element.title
+                                    %>
+                            </li>
+                        </ul>
+                        <% });
+                            %>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

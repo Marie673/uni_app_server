@@ -70,7 +70,6 @@ AppDataSource.initialize()
             .getOne();
 
         if (res3 === null) {
-            console.log("aaa")
             for (let i = 0; i < 10; i++) {
                 const disaster = new Disaster()
                 disaster.author_id = 0
