@@ -1,16 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
-export class Inquiry {
+export class Disaster {
     @PrimaryGeneratedColumn()
-    readonly inquiry_id!: number;
+    readonly disaster_id!: number;
 
     @Column()
-    user_id!: number;
+    author_id!: number;
 
     @Column()
     title!: string;
 
     @Column()
     content!: string;
+
+    @Column()
+    tag!: string[];
 }
