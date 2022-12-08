@@ -30,6 +30,7 @@
     "body-parser": "^1.20.1",
     "ejs": "^3.1.8",
     "ejs-ts": "^1.0.0",
+    "mysql": "^2.18.1",
     "node": "^19.0.0",
     "reflect-metadata": "^0.1.13",
     "ts-node-dev": "^2.0.0",
