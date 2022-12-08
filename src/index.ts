@@ -3,16 +3,28 @@ import bodyParser from "body-parser";
 import api from "./routes/api/index"
 import admin from "./routes/admin/index"
 import test from "./routes/test";
+import "reflect-metadata"
 
-const app = express()
-app.use(bodyParser.json())
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+import { AppDataSource } from "./infrastructure/db/data-source";
 
-app.use('/test', test)
-app.use('/api', api)
-app.use('/admin', admin)
+AppDataSource.initialize()
+    .then(() => {
 
-const port = process.env.PORT || 3000
-app.listen(port)
-console.log("Express WebApi listening on port " + port)
+        const app = express()
+
+        app.set('view engine', 'ejs');
+
+        app.use(bodyParser.json())
+        app.use(express.json())
+        app.use(express.urlencoded({ extended: true }))
+
+        app.use('/test', test)
+        app.use('/api', api)
+        app.use('/admin', admin)
+
+        const port = process.env.PORT || 3000
+        app.listen(port)
+        console.log("Express WebApi listening on port " + port)
+
+    })
+    .catch((error) => console.log(error))
