@@ -8,12 +8,18 @@ export class News {
     @Column()
     author_id!: number;
 
-    @Column()
+    @Column("text")
     title!: string;
 
-    @Column()
+    @Column("text")
     content!: string;
 
-    @Column()
+    @Column({ type: 'simple-array' })
     tag!: string[];
+
+    @Column()
+    datetime!: Date;
+
+    @Column()
+    isPublished!: boolean;
 }

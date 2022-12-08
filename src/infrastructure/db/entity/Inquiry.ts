@@ -8,9 +8,15 @@ export class Inquiry {
     @Column()
     user_id!: number;
 
-    @Column()
+    @Column("text")
     title!: string;
 
-    @Column()
+    @Column("text")
     content!: string;
+
+    @Column()
+    datetime!: Date;
+
+    @Column()
+    isPublished!: boolean;
 }
