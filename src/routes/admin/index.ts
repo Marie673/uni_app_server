@@ -1,8 +1,8 @@
 import express from "express";
-import dashboard from "./dashboard";
+import dashboard from "./home";
 const router = express.Router()
 
-router.use('/dashboard', dashboard)
+router.use('/', dashboard)
 
 
 export default router
