@@ -18,8 +18,6 @@ router.get('/', async (req: express.Request, res: express.Response) => {
         user_name.push(await getUserNameById(inquiry[i].user_id))
     }
 
-    console.log(user_name)
-
     res.render('pages/admin/inquiry', { inquiry: inquiry, moment: moment, user_name: user_name })
 })
 
