@@ -37,7 +37,7 @@ AppDataSource.initialize()
         if (res === null) {
             for (let i = 0; i < 10; i++) {
                 const news = new News()
-                news.author_id = 0
+                news.author_id = 1
                 news.title = "Lorem ipsum"
                 news.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci sem, dictum id augue quis, pharetra mollis metus. Morbi rutrum id tellus vitae egestas. Nullam hendrerit, urna a cursus finibus, mi turpis hendrerit est, maximus egestas magna dolor fermentum massa. Duis sagittis bibendum neque, scelerisque ele"
                 news.tag = ["test", "test2", "test3"]
@@ -52,10 +52,10 @@ AppDataSource.initialize()
             .createQueryBuilder('entity')
             .getOne()
 
-        if (res2 === undefined) {
+        if (res2 === undefined || res2 === null) {
             for (let i = 0; i < 10; i++) {
                 const inquiry = new Inquiry()
-                inquiry.user_id = 0
+                inquiry.user_id = 1
                 inquiry.title = "Lorem ipsum"
                 inquiry.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci sem, dictum id augue quis, pharetra mollis metus. Morbi rutrum id tellus vitae egestas. Nullam hendrerit, urna a cursus finibus, mi turpis hendrerit est, maximus egestas magna dolor fermentum massa. Duis sagittis bibendum neque, scelerisque ele"
                 inquiry.datetime = new Date()
@@ -69,10 +69,10 @@ AppDataSource.initialize()
             .createQueryBuilder('entity')
             .getOne();
 
-        if (res3 === null) {
+        if (res3 === undefined || res3 === null) {
             for (let i = 0; i < 10; i++) {
                 const disaster = new Disaster()
-                disaster.author_id = 0
+                disaster.author_id = 1
                 disaster.title = "Lorem ipsum"
                 disaster.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci sem, dictum id augue quis, pharetra mollis metus. Morbi rutrum id tellus vitae egestas. Nullam hendrerit, urna a cursus finibus, mi turpis hendrerit est, maximus egestas magna dolor fermentum massa. Duis sagittis bibendum neque, scelerisque ele"
                 disaster.datetime = new Date()
