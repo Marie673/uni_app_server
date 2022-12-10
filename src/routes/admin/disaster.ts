@@ -6,7 +6,7 @@ import { getUserNameById } from "../../infrastructure/db/utils";
 import "moment-timezone"
 const router = express.Router()
 
-router.get('/:id', async (req: express.Request, res: express.Response) => {
+router.get('/details/:id', async (req: express.Request, res: express.Response) => {
     const id = Number(req.params.id);
     if (id === null) {
 
@@ -26,7 +26,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
             res.render('pages/admin/error/value_error')
         } else {
             const user_name = await getUserNameById(disaster.disaster_id)
-            res.render('pages/admin/disaster/id', { disaster: disaster, moment: moment, user_name: user_name })
+            res.render('pages/admin/disaster/details/id', { disaster: disaster, moment: moment, user_name: user_name })
         }
     }
 })
