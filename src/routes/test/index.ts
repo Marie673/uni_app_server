@@ -1,8 +1,8 @@
 import express from "express";
-import * as testdb from "../../infrastructure/mariadb/testdb"
-import {testPushNotification1} from "../../infrastructure/filebase/firebase";
-import {updateTimeTable} from "../../infrastructure/mariadb/testdb";
-import {Timetable} from "../../domain/user";
+import * as testdb from "../../infrastructure/db/testdb"
+// import {testPushNotification1} from "../../infrastructure/filebase/firebase";
+import { updateTimeTable } from "../../infrastructure/db/testdb";
+import { Timetable } from "../../domain/user";
 
 const router = express.Router()
 
@@ -11,10 +11,10 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     res.status(200).json(user)
 })
 
-router.get('/notification', async (req: express.Request, res: express.Response) => {
-    await testPushNotification1(2266016)
-    res.status(200).json({status: 'complete'})
-})
+// router.get('/notification', async (req: express.Request, res: express.Response) => {
+//     await testPushNotification1(2266016)
+//     res.status(200).json({status: 'complete'})
+// })
 
 router.post('/auth', async (req: express.Request, res: express.Response) => {
     // console.log(req)

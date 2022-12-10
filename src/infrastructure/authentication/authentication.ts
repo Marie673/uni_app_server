@@ -1,10 +1,10 @@
-import express, {Response} from "express";
+import express, { Response } from "express";
 import jwt from "jsonwebtoken";
-import {UserInfo} from "../../domain/user";
+import { UserInfo, implementsUser } from "../../domain/user";
 
 const app = express()
 // TODO: 鍵をべた書きは良くない
-app.set( 'superSecret', 'vxvawwark8vpf4axz17k' )
+app.set('superSecret', 'vxvawwark8vpf4axz17k')
 const jwtSecret = 'vxvawwark8vpf4axz17k'
 const jwtOptions = {
     algorithm: 'HS256',
@@ -14,19 +14,19 @@ const jwtOptions = {
 // 認証パス
 // トークン生成
 export function generateToken(user_info: UserInfo) {
-    return jwt.sign(user_info, jwtSecret, jwtOptions)
+    return jwt.sign(user_info, jwtSecret)
 }
 
 // jwtの整合性確認
-export const authentication = ( req: express.Request, res: Response, next: express.NextFunction) => {
+export const authentication = (req: express.Request, res: Response, next: express.NextFunction) => {
     let token = req.body.token || req.query.token || req.headers['x-access-token']
 
     if (!token) {
-        return res.status(403).send({success: false, message: 'No token provided.'})
+        return res.status(403).send({ success: false, message: 'No token provided.' })
     }
     jwt.verify(token, jwtSecret, function (err: any, decoded: any) {
         if (err) {
-            return res.json({success: false, message: 'Invalid token.'})
+            return res.json({ success: false, message: 'Invalid token.' })
         }
         return
     })
@@ -34,7 +34,7 @@ export const authentication = ( req: express.Request, res: Response, next: expre
 }
 
 // jwtからユーザデータ抽出
-export function extraction (req: express.Request): UserInfo | unknown {
+export function extraction(req: express.Request): UserInfo | unknown {
     let info: UserInfo = {
         'uuid': 0,
         'name': "",
