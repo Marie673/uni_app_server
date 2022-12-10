@@ -18,21 +18,21 @@
                     <div>
                         <h3 class="card-title d-inline">災害情報</h3>
                     </div>
-                    <% disaster.forEach(function(element, index)
-                        {
-                        %>
+                    <% disaster.forEach(function(element, index) { %>
                         <ul class="list-group mt-2">
                             <li class="list-group-item">
                                 <h5 class="card-title d-inline">
-                                    <%= element.title
-                                        %>
+                                    <%= element.title %>
                                 </h5>
                                 <h6 class="d-inline font-weight-light">
                                     <%= moment(element.datetime).format('YYYY/M/d H:mm:ss zz') %>
                                 </h6>
                                 <p>
-                                    <%= element.content
-                                        %>
+                                    <% if (element.content.length > 100) { %>
+                                        <%= element.content.substring(1, 100) %> ...
+                                    <% } else { %>
+                                        <%= element.content %>
+                                    <% } %>
                                 </p>
                                 <% for(var i=0; i<element.tag.length; i++) { %>
                                     <span class="badge bg-primary"
@@ -42,8 +42,7 @@
                                  <% } %>
                             </li>
                         </ul>
-                        <% });
-                            %>
+                    <% }); %>
                 </div>
             </div>
         </div>

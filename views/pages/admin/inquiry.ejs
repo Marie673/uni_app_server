@@ -18,9 +18,7 @@
                     <div>
                         <h3 class="card-title d-inline">お問い合わせ</h3>
                     </div>
-                    <% inquiry.forEach(function(element, index)
-                        {
-                        %>
+                    <% inquiry.forEach(function(element, index) { %>
                         <ul class="list-group mt-2">
                             <li class="list-group-item">
                                 <h5 class="card-title d-inline">
@@ -33,13 +31,15 @@
                                     <%= user_name[index].name %>
                                         </h5>
                                         <p>
-                                            <%= element.content
-                                                %>
+                                            <% if (element.content.length > 100) { %>
+                                                <%= element.content.substring(1, 100) %> ...
+                                            <% } else { %>
+                                                <%= element.content %>
+                                            <% } %>
                                         </p>
                             </li>
                         </ul>
-                        <% });
-                            %>
+                    <% }); %>
                 </div>
             </div>
         </div>
