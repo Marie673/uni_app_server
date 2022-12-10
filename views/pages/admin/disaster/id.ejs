@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <%- include('../../../partials/admin/head');
+        %>
+</head>
+
+<body>
+    <%- include('../../../partials/admin/header',
+        {
+        current: 'disaster'
+        });
+        %>
+        <div class="container mt-5">
+            <h2 class="card-title d-inline">災害情報照会</h3>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <h3 class="d-inline"><%= disaster.title %></h3>
+                            <p class="d-inline">ID: <%= disaster.disaster_id %></p>
+                        </div>
+                        <h6 class="text-muted"><%= moment(disaster.datetime).format('YYYY/M/d H:mm:ss zz') %> に <%= user_name.name %> が投稿</h6>
+                        <hr>
+                        <p><%= disaster.content %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

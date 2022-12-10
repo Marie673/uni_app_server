@@ -13,39 +13,35 @@
         });
         %>
         <div class="container mt-5">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">現在表示中</h3>
-                    <% news.forEach(function(element) { %>
-                        <ul class="list-group mt-2">
-                            <li class="list-group-item">
-                                <div>
-                                    <h5 class="d-inline card-title">
-                                        <%= element.title %>
-                                    </h5>
-                                    <h6 class="d-inline font-weight-light">
-                                        <%= moment(element.datetime).format('YYYY/M/d H:mm:ss zz')
-                                            %>
-                                    </h6>
-                                </div>
-                                <p>
-                                    <% if (element.content.length > 100) { %>
-                                        <%= element.content.substring(1, 100) %> ...
-                                    <% } else { %>
-                                        <%= element.content %>
-                                    <% } %>
-                                </p>
-                                <% for(var i=0; i<element.tag.length; i++) { %>
-                                    <span class="badge bg-primary"
-                                        style="font-size: 15px;">
-                                        <%= element.tag[i] %>
-                                    </span>
-                                 <% } %>
-                            </li>
-                        </ul>
-                    <% }); %>
-                </div>
-            </div>
+            <h2 class="card-title">お知らせ</h2>
+                <% news.forEach(function(element) { %>
+                    <ul class="list-group mt-2">
+                        <li class="list-group-item">
+                            <div>
+                                <h5 class="d-inline card-title">
+                                    <a href="/admin/news/<%= element.news_id %>"><%= element.title %></a>
+                                </h5>
+                                <h6 class="d-inline font-weight-light">
+                                    <%= moment(element.datetime).format('YYYY/M/d H:mm:ss zz')
+                                        %>
+                                </h6>
+                            </div>
+                            <p>
+                                <% if (element.content.length > 100) { %>
+                                    <%= element.content.substring(1, 100) %> ...
+                                <% } else { %>
+                                    <%= element.content %>
+                                <% } %>
+                            </p>
+                            <% for(var i=0; i<element.tag.length; i++) { %>
+                                <span class="badge bg-primary"
+                                    style="font-size: 15px;">
+                                    <%= element.tag[i] %>
+                                </span>
+                             <% } %>
+                        </li>
+                    </ul>
+                <% }); %>
         </div>
 </body>
 
