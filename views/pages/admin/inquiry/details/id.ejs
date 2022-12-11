@@ -2,8 +2,11 @@
 <html lang="ja">
 
 <head>
-    <%- include('../../../../partials/admin/head');
-        %>
+    <%- include('../../../../partials/admin/head',
+        {
+            title: inquiry.title + ' / お問い合わせ照会'
+        });
+    %>
 </head>
 
 <body>
