@@ -1,10 +1,10 @@
-import {getFcmToken} from "../mariadb/testdb";
+import { getFcmToken } from "../db/testdb";
 
 const admin = require('firebase-admin')
 const serviceAccount = require("./anpikakuninproject-firebase-adminsdk-k8ej5-2594dee450.json")
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
- })
+    credential: admin.credential.cert(serviceAccount)
+})
 const messaging = admin.messaging()
 
 const test_token = [
@@ -15,7 +15,7 @@ const test_token = [
 
 export async function testPushNotification(): Promise<void> {
     const message = {
-        notification:{
+        notification: {
             title: "檜山はフォアグラウンドに苦戦中",
             body: "頑張れ"
         },
@@ -26,13 +26,13 @@ export async function testPushNotification(): Promise<void> {
         tokens: test_token
     }
     await messaging.sendMulticast(message)
-     return
+    return
 }
 export async function testPushNotification1(uuid: number): Promise<void> {
     let token = await getFcmToken(uuid)
     console.log(token)
     const message = {
-        notification:{
+        notification: {
             title: "檜山はフォアグラウンドに苦戦中",
             body: "頑張れ"
         },
