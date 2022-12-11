@@ -9,6 +9,7 @@ import { AppDataSource } from "./infrastructure/db/data-source";
 import { News } from "./infrastructure/db/entity/News";
 import { Inquiry } from "./infrastructure/db/entity/Inquiry";
 import { Disaster } from "./infrastructure/db/entity/Disaster";
+import { User } from "./infrastructure/db/entity/User";
 
 AppDataSource.initialize()
     .then(async () => {
@@ -35,7 +36,7 @@ AppDataSource.initialize()
             .createQueryBuilder('entity')
             .getOne();
         if (res === null) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 30; i++) {
                 const news = new News()
                 news.author_id = 1
                 news.title = "Lorem ipsum"
@@ -53,7 +54,7 @@ AppDataSource.initialize()
             .getOne()
 
         if (res2 === undefined || res2 === null) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 30; i++) {
                 const inquiry = new Inquiry()
                 inquiry.user_id = 1
                 inquiry.title = "Lorem ipsum"
@@ -70,7 +71,7 @@ AppDataSource.initialize()
             .getOne();
 
         if (res3 === undefined || res3 === null) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 30; i++) {
                 const disaster = new Disaster()
                 disaster.author_id = 1
                 disaster.title = "Lorem ipsum"
@@ -81,6 +82,16 @@ AppDataSource.initialize()
 
                 AppDataSource.manager.save(disaster)
             }
+        }
+
+        const res4 = await AppDataSource.getRepository(User)
+            .createQueryBuilder('entity')
+            .getOne();
+        if (res3 === undefined || res3 === null) {
+            const user = new User();
+            user.name = "test user"
+            user.password = "lucky"
+            AppDataSource.manager.save(user)
         }
 
         // TODO: delete this ここまで
