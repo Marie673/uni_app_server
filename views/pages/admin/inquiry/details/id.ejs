@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <%- include('../../../../partials/admin/head',
+        {
+            title: inquiry.title + ' / お問い合わせ照会'
+        });
+    %>
+</head>
+
+<body>
+    <%- include('../../../../partials/admin/header',
+        {
+        current: 'inquiry'
+        });
+        %>
+        <div class="container mt-5">
+            <h2 class="card-title d-inline">お問い合わせ照会</h3>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <h3 class="d-inline"><%= inquiry.title %></h3>
+                            <p class="d-inline">ID: <%= inquiry.inquiry_id %></p>
+                        </div>
+                        <h6 class="text-muted"><%= moment(inquiry.datetime).format('YYYY/M/d H:mm:ss zz') %> に <%= user.name %> が投稿</h6>
+                        <hr>
+                        <p><%= inquiry.content %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
