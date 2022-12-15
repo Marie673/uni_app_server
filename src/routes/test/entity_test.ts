@@ -25,22 +25,5 @@ describe('時間割テスト', () => {
 
         const rep = source.AppDataSource.getRepository(TimetableEntity)
 
-        if ((await rep.count()) === 0) {
-            const saveTable = async ({table, parent}: { table: TimetableValue, parent?: TimetableEntity}) => {
-                const timetableEntity = new TimetableEntity(table.user_id, table.name, parent)
-                await rep.save(table)
-                if (table.children)
-                    for (const child of table.children) await saveTable({table: child, parent: timetableEntity})
-            }
-            await saveTable({table: data})
-        }
-        console.log("データの取得")
-        const item1 = await rep.find()
-        console.log(JSON.stringify(item1, null, " "))
-
-        console.log("ツリー")
-        const item2 = await rep.findTrees()
-        console.log(JSON.stringify(item2, null, " "))
-
     })
 })
