@@ -2,7 +2,7 @@
   "name": "uni_app_server",
   "version": "0.1.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn ./src/index.ts",
     "clean": "rimraf dist",
