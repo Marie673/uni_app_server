@@ -6,10 +6,6 @@ import test from "./routes/test";
 import "reflect-metadata"
 
 import { AppDataSource } from "./infrastructure/db/data-source";
-import { News } from "./infrastructure/db/entity/News";
-import { Inquiry } from "./infrastructure/db/entity/Inquiry";
-import { Disaster } from "./infrastructure/db/entity/Disaster";
-import { User } from "./infrastructure/db/entity/User";
 
 AppDataSource.initialize()
     .then(async () => {
@@ -29,8 +25,6 @@ AppDataSource.initialize()
         const port = process.env.PORT || 3000
         app.listen(port)
         console.log("Express WebApi listening on port " + port)
-
-
 
     })
     .catch((error) => console.log(error))
