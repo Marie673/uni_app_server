@@ -1,4 +1,13 @@
 ![build worlflow](https://github.com/Marie673/uni_app_server/workflows/Deploy%20to%20Amazon%20EC2/badge.svg)
+# ブランチの管理
+## master
+本番サーバ用
+ここに変更があると本番サーバが更新されます。
+
+## develop
+開発用
+基本的にここにプルリクしていってください。今後、テスト用サーバを用意します。
+
 
 # コミットメッセージの書き方
 今後のことも考えて日本語で書きます。
