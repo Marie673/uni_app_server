@@ -5,8 +5,16 @@ export enum UserRole {
     MEMBER = "member",
 }
 
+export interface UserInterface {
+    user_id: number
+    name: string
+    password: string
+    role: UserRole
+    fmc_token: string
+}
+
 @Entity()
-export class User {
+export class User implements UserInterface{
     @PrimaryGeneratedColumn()
     user_id!: number;
 
@@ -22,4 +30,16 @@ export class User {
         default: UserRole.MEMBER,
     })
     role!: UserRole;
+    @Column()
+    fmc_token!: string
+}
+
+export function implementsUser(obj: any): obj is User {
+    return (
+        typeof obj === 'object' &&
+        obj !== null &&
+        'uuid' in obj &&
+        'name' in obj &&
+        'password' in obj
+    )
 }

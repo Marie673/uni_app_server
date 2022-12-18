@@ -1,25 +1,22 @@
 import express from "express";
-import { User, implementsUser, UserInfo, implementsUserInfo } from "../../domain/user"
-import * as mariadb from "../../infrastructure/db/testdb"
+import { User, implementsUser } from "../../domain/entity/User"
+import {getUserById} from "../../infrastructure/db/utils";
 import { generateToken, extraction } from "../../infrastructure/authentication/authentication"
 
 
 const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-    const user: User | unknown = await mariadb.getUser(Number(req.body.uuid))
-    console.log(user)
+    const uuid = Number(req.body.uuid)
+    const user: Promise<User | null> = getUserById(uuid)
+    console.log("get login request:"+ user)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
     }
-    const user_info: UserInfo = {
-        uuid: user.uuid,
-        name: user.name,
-    }
 
-    if (user.uuid == req.body.uuid && user.password == req.body.password) {
-        let token = generateToken(user_info)
-        await mariadb.updateFcmToken(user.uuid, req.body.fcmtoken)
+    if (user.user_id == req.body.uuid && user.password == req.body.password) {
+        let token = generateToken(user)
+        // TODO: updateFmcToken
         res.json({ success: true, message: 'Authentication successfully finished.', token: token })
     }
     else {
@@ -28,17 +25,15 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 })
 
 router.post('/update', async (req: express.Request, res: express.Response) => {
-    let user_info: any = extraction(req)
-    if (!implementsUserInfo(user_info)) {
-        return res.status(400).json({ message: "invalid token" })
-    }
-
-    const user: User | unknown = await mariadb.getUser(user_info.uuid)
+    const user_ = extraction(req)
+    const uuid = Number(req.body.uuid)
+    const user: Promise<User | null> = getUserById(uuid)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
     }
+
     if (user.password == req.body.old_password) {
-        await mariadb.updatePassword(user_info.uuid, req.body.new_password)
+        // TODO: updatePassword
         return res.status(200).json({ success: true })
     }
     else {
