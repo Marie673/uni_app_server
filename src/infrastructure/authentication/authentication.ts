@@ -1,6 +1,6 @@
-import express, { Response } from "express";
+import express, {Response} from "express";
 import jwt from "jsonwebtoken";
-import { UserInfo, implementsUser } from "../../domain/user";
+import {User} from "../../domain/entity/User";
 
 const app = express()
 // TODO: 鍵をべた書きは良くない
@@ -11,15 +11,32 @@ const jwtOptions = {
     expiresIn: '24h',
 }
 
+interface jwtInfo {
+    user_id: number
+    name: string
+}
+export function implementsJwtInfo(obj: any): obj is jwtInfo {
+    return (
+        typeof obj === 'object' &&
+        obj !== null &&
+        'user_id' in obj &&
+        'name' in obj
+    )
+}
+
 // 認証パス
 // トークン生成
-export function generateToken(user_info: UserInfo) {
+export function generateToken(user: User) {
+    const user_info: jwtInfo = {
+        user_id: user.user_id,
+        name: user.name
+    }
     return jwt.sign(user_info, jwtSecret)
 }
 
 // jwtの整合性確認
 export const authentication = (req: express.Request, res: Response, next: express.NextFunction) => {
-    let token = req.body.token || req.query.token || req.headers['x-access-token']
+    const token = req.body.token || req.query.token || req.headers['x-access-token']
 
     if (!token) {
         return res.status(403).send({ success: false, message: 'No token provided.' })
@@ -34,20 +51,21 @@ export const authentication = (req: express.Request, res: Response, next: expres
 }
 
 // jwtからユーザデータ抽出
-export function extraction(req: express.Request): UserInfo | unknown {
-    let info: UserInfo = {
-        'uuid': 0,
-        'name': "",
-    }
+export function extraction(req: express.Request): jwtInfo{
     let token = req.body.token || req.query.token || req.headers['x-access-token']
-    jwt.verify(token, jwtSecret, function (err: any, decoded: any) {
-        if (err) {
-            return err
-        }
-        info = {
-            'uuid': Number(decoded.uuid),
-            'name': decoded.name,
-        }
-    })
-    return info
+    let decoded
+    try {
+        decoded = jwt.verify(token, jwtSecret);
+    }
+    catch (err) {
+        throw err
+    }
+    if (!implementsJwtInfo(decoded)) {
+        throw DOMException
+    }
+
+    return {
+        user_id: decoded.user_id,
+        name: decoded.name
+    }
 }
