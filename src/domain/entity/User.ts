@@ -14,7 +14,7 @@ export interface UserInterface {
 }
 
 @Entity()
-export class User implements UserInterface{
+export class UserEntity implements UserInterface{
     @PrimaryGeneratedColumn()
     user_id!: number;
 
@@ -34,7 +34,7 @@ export class User implements UserInterface{
     fmc_token!: string
 }
 
-export function implementsUser(obj: any): obj is User {
+export function implementsUser(obj: any): obj is UserEntity {
     return (
         typeof obj === 'object' &&
         obj !== null &&
