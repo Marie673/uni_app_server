@@ -2,10 +2,8 @@ import * as typeorm from "typeorm"
 
 
 @typeorm.Entity()
-export class TimetableEntity {
-    constructor(user_id: number, name: string) {
-        this.user_id = user_id
-    }
+export class Timetable {
+
     @typeorm.PrimaryGeneratedColumn()
     id!: number
 

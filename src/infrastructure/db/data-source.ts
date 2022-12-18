@@ -1,9 +1,9 @@
 import { DataSource } from "typeorm"
-import { User } from "./entity/User"
-import { News } from "./entity/News"
-import { Inquiry } from "./entity/Inquiry"
-import { Disaster } from "./entity/Disaster"
-import Timetable from "../../routes/api/timetable";
+import { User } from "../../domain/entity/User"
+import { News } from "../../domain/entity/News"
+import { Inquiry } from "../../domain/entity/Inquiry"
+import { Disaster } from "../../domain/entity/Disaster"
+import { Timetable } from "../../domain/entity/Timetable"
 
 
 export const AppDataSource = new DataSource({
@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: "testdb",
     synchronize: true,
     logging: false,
-    entities: [User, News, Inquiry, Disaster],
+    entities: [User, News, Inquiry, Disaster, Timetable],
     subscribers: [],
     migrations: [],
 })

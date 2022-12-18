@@ -1,6 +1,6 @@
 import express from "express";
 import { AppDataSource } from "../../infrastructure/db/data-source";
-import { Inquiry } from "../../infrastructure/db/entity/Inquiry";
+import { Inquiry } from "../../domain/entity/Inquiry";
 import moment from "moment";
 import "moment-timezone"
 import { getUserById } from "../../infrastructure/db/utils";

@@ -1,6 +1,6 @@
 import express from "express";
 import { AppDataSource } from "../../infrastructure/db/data-source";
-import { News } from "../../infrastructure/db/entity/News";
+import { News } from "../../domain/entity/News";
 import moment from "moment";
 import "moment-timezone"
 import { getUserById } from "../../infrastructure/db/utils";
