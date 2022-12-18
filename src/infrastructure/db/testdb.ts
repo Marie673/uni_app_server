@@ -4,7 +4,7 @@ import {User, Timetable} from "../../domain/user"
 
 const pool = mariadb.createPool({
     host: "127.0.0.1",
-    port: 3307,
+    port: 3306,
     user: "user",
     password: "password",
     database: "testdb",
@@ -15,7 +15,7 @@ export const getUser = async (uuid: number): Promise<Promise<User> | unknown>=> 
     let conn: mariadb.PoolConnection | undefined
     conn = await pool.getConnection()
     try {
-        const response = await conn.query("select * from User where uuid = ?", [uuid])
+        const response = await conn.query("select * from user where uuid = ?", [uuid])
         if (response[0].uuid != uuid) {
             return null
         }
