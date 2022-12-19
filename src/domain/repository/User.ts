@@ -1,11 +1,8 @@
 import {UserEntity, UserInterface, UserRole} from "../entity/User";
-import {TreeRepositoryUtils} from "typeorm";
 
 
 
-class UserRepository implements UserInterface {
-    name!: string
-    user_id!: number
+class UserRepository{
     save(user: UserEntity): boolean {
         return true
     }

@@ -11,10 +11,6 @@ export interface UserInterface {
     password?: string
     role?: UserRole
     fmc_token?: string
-
-    save?(user: UserEntity): boolean
-    delete?(user_id: number): boolean
-    update?(user: UserEntity): boolean
 }
 
 @Entity()
