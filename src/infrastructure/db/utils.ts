@@ -15,4 +15,11 @@ async function insertUser(user: UserEntity) {
         .save(user)
 }
 
+async function updateUser(user: UserEntity) {
+    const user_data = await AppDataSource.getRepository(UserEntity)
+        .findOneBy({user_id: user.user_id})
+    return await AppDataSource.getRepository(UserEntity)
+        .save(user)
+}
+
 export { getUserById, insertUser }

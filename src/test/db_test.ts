@@ -7,9 +7,9 @@ test('insert data', async () => {
     AppDataSource.initialize().then(async () => {
         try {
             const new_Data: UserEntity = {
-                fmc_token: "test",
+                fmc_token: "tseafsefest",
                 name: "oka",
-                password: "testtest",
+                password: "asdlfasdfasdf",
                 user_id: 2266003,
                 role: UserRole.MEMBER
             }
