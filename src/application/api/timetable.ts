@@ -1,17 +1,18 @@
 import express from "express";
-import { UserInfo, Timetable, implementsUserInfo } from "../../domain/user"
+import { UserEntity, implementsUser } from "../../domain/entity/User"
 import { extraction } from "../../infrastructure/authentication/authentication";
-import { getTimeTable } from "../../infrastructure/db/testdb";
+
 
 const router = express.Router()
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-    let user_info: any = extraction(req)
-    if (!implementsUserInfo(user_info)) {
+    let user: any = extraction(req)
+    if (!implementsUser(user)) {
         return res.status(400).json({ message: "invalid token" })
     }
     try {
-        let timetable: Timetable | unknown = await getTimeTable(user_info.uuid)
+        // TODO: getTimetable
+        let timetable = null
         return res.status(200).json(timetable)
     }
     catch (error: any) {
@@ -21,8 +22,8 @@ router.get('/', async (req: express.Request, res: express.Response) => {
 
 // TODO: post実装
 router.post('/', async (req: express.Request, res: express.Response) => {
-    let user_info: any = extraction(req)
-    if (!implementsUserInfo(user_info)) {
+    let user: any = extraction(req)
+    if (!implementsUser(user)) {
         return res.status(400).json({ message: "invalid token" })
     }
     try {

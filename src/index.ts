@@ -1,8 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser";
-import api from "./routes/api/index"
-import admin from "./routes/admin/index"
-import test from "./routes/test";
+import api from "./application/api/index"
+import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import { AppDataSource } from "./infrastructure/db/data-source";
@@ -18,7 +17,6 @@ AppDataSource.initialize()
         app.use(express.json())
         app.use(express.urlencoded({ extended: true }))
 
-        app.use('/test', test)
         app.use('/api', api)
         app.use('/admin', admin)
 
