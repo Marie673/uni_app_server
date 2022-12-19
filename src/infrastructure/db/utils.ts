@@ -1,5 +1,7 @@
 import {AppDataSource} from "./data-source";
 import {UserEntity} from "../../domain/entity/User";
+import {News} from "../../domain/entity/News";
+
 
 async function getUserById(user_id: number) {
     return await AppDataSource.getRepository(UserEntity)
@@ -9,10 +11,8 @@ async function getUserById(user_id: number) {
 }
 
 async function insertUser(user: UserEntity) {
-    const article = AppDataSource.getRepository(UserEntity)
-        .create(user)
     return await AppDataSource.getRepository(UserEntity)
-        .save(article)
+        .save(user)
 }
 
-export { getUserById }
+export { getUserById, insertUser }
