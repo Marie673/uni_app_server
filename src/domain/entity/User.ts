@@ -8,9 +8,13 @@ export enum UserRole {
 export interface UserInterface {
     user_id: number
     name: string
-    password: string
-    role: UserRole
-    fmc_token: string
+    password?: string
+    role?: UserRole
+    fmc_token?: string
+
+    save?(user: UserEntity): boolean
+    delete?(user_id: number): boolean
+    update?(user: UserEntity): boolean
 }
 
 @Entity()
