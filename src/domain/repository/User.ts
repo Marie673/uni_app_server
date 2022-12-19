@@ -1,5 +1,5 @@
 import {UserEntity, UserInterface, UserRole} from "../entity/User";
-
+import {getUserById} from "../../infrastructure/db/utils";
 
 
 class UserRepository{

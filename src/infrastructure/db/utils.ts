@@ -8,4 +8,11 @@ async function getUserById(user_id: number) {
         .getOne()
 }
 
+async function insertUser(user: UserEntity) {
+    const article = AppDataSource.getRepository(UserEntity)
+        .create(user)
+    return await AppDataSource.getRepository(UserEntity)
+        .save(article)
+}
+
 export { getUserById }
