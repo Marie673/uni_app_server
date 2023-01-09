@@ -1,5 +1,5 @@
 import express from "express";
-import { UserEntity, implementsUser } from "../../domain/entity/User"
+import { User, implementsUser } from "../../domain/entity/User"
 import {getUserById} from "../../infrastructure/db/utils";
 import { generateToken, extraction } from "../../infrastructure/authentication/authentication"
 
@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
     const uuid = Number(req.body.uuid)
-    const user: Promise<UserEntity | null> = getUserById(uuid)
+    const user: Promise<User | null> = getUserById(uuid)
     console.log("get login request:"+ user)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
@@ -27,7 +27,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 router.post('/update', async (req: express.Request, res: express.Response) => {
     const user_ = extraction(req)
     const uuid = Number(req.body.uuid)
-    const user: Promise<UserEntity | null> = getUserById(uuid)
+    const user: Promise<User | null> = getUserById(uuid)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
     }

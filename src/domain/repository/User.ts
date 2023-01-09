@@ -1,9 +1,9 @@
-import {UserEntity, UserInterface, UserRole} from "../entity/User";
+import {User, UserInterface, UserRole} from "../entity/User";
 import {getUserById} from "../../infrastructure/db/utils";
 
 
 class UserRepository{
-    save(user: UserEntity): boolean {
+    save(user: User): boolean {
         return true
     }
 
@@ -11,7 +11,7 @@ class UserRepository{
         return true
     }
 
-    update(user: UserEntity): boolean {
+    update(user: User): boolean {
         return true
     }
 

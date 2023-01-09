@@ -1,5 +1,5 @@
 import express from "express";
-import { UserEntity, implementsUser } from "../../domain/entity/User"
+import { User, implementsUser } from "../../domain/entity/User"
 import { extraction } from "../../infrastructure/authentication/authentication";
 
 
