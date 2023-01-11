@@ -39,6 +39,7 @@ jobs:
   
  build:
    runs-on: ubuntu-latest
+   needs: setup
    steps:
       # ビルドする
      - name: Build
