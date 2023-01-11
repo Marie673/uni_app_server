@@ -1,6 +1,6 @@
 import express, {Response} from "express";
 import jwt from "jsonwebtoken";
-import {UserEntity} from "../../domain/entity/User";
+import {User} from "../../domain/entity/User";
 
 const app = express()
 // TODO: 鍵をべた書きは良くない
@@ -26,7 +26,7 @@ export function implementsJwtInfo(obj: any): obj is jwtInfo {
 
 // 認証パス
 // トークン生成
-export function generateToken(user: UserEntity) {
+export function generateToken(user: User) {
     const user_info: jwtInfo = {
         user_id: user.user_id,
         name: user.name

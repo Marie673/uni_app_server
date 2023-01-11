@@ -1,18 +1,29 @@
-import {UserEntity, UserInterface, UserRole} from "../entity/User";
-import {getUserById} from "../../infrastructure/db/utils";
+import {User} from "../entity/User";
+import {AppDataSource} from "../../infrastructure/db/data-source";
 
 
-class UserRepository{
-    save(user: UserEntity): boolean {
-        return true
-    }
+const userRepository = AppDataSource.getRepository(User)
 
-    delete(user_id: number): boolean {
-        return true
-    }
-
-    update(user: UserEntity): boolean {
-        return true
-    }
-
+export async function save(user: User): Promise<boolean> {
+    await userRepository
+        .save(user)
+    return true
 }
+
+export async function find(user_id: number) {
+    return await userRepository
+        .findOneBy({user_id: user_id})
+}
+
+export async function remove(user_id: number): Promise<boolean> {
+    const user = await userRepository
+        .findOneBy({user_id: user_id})
+    if (user !== null) {
+        // TODO: Timetableの削除
+        await userRepository.remove(user)
+        return true
+    }
+
+    return false
+}
+
