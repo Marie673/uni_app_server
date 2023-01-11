@@ -1,4 +1,4 @@
-[![Deploy to Amazon EC2](https://github.com/Marie673/uni_app_server/actions/workflows/aws.yml/badge.svg?branch=develop&event=deployment_status)](https://github.com/Marie673/uni_app_server/actions/workflows/aws.yml)
+[![Deploy to Amazon EC2](https://github.com/Marie673/uni_app_server/actions/workflows/aws.yml/badge.svg?branch=master&event=push)](https://github.com/Marie673/uni_app_server/actions/workflows/aws.yml)
 # ブランチの管理
 ## master
 本番サーバ用
