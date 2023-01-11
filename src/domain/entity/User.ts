@@ -1,4 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn} from "typeorm"
+import {Timetable} from "./Timetable";
+import timetable from "../../application/api/timetable";
+import {AppDataSource} from "../../infrastructure/db/data-source";
+
 
 export enum UserRole {
     STAFF = "staff",
@@ -8,33 +12,47 @@ export enum UserRole {
 export interface UserInterface {
     user_id: number
     name: string
-    password?: string
-    role?: UserRole
-    fmc_token?: string
+    password: string
+    role: UserRole
+    fmc_token?: string | null
+    time_table?: Timetable[] | null
 }
 
 @Entity()
-export class UserEntity implements UserInterface{
-    @PrimaryGeneratedColumn()
-    user_id!: number;
+export class User implements UserInterface{
+    @PrimaryColumn()
+    readonly user_id: number;
 
     @Column()
-    name!: string;
+    name: string;
 
     @Column()
-    password!: string;
+    password: string;
 
     @Column({
         type: "enum",
         enum: UserRole,
         default: UserRole.MEMBER,
     })
-    role!: UserRole;
-    @Column()
-    fmc_token!: string
+    role: UserRole = UserRole.MEMBER;
+
+    @Column({ type: 'varchar', nullable: true })
+    fmc_token?: string | null
+
+    @OneToMany(type => Timetable, (time_table) => time_table.user)
+    time_table?: Timetable[]
+
+    constructor(user_id: number, name: string, password: string
+                , fmc_token: string | null) {
+        this.user_id = user_id
+        this.name = name
+        this.password = password
+        this.fmc_token = fmc_token
+    }
+
 }
 
-export function implementsUser(obj: any): obj is UserEntity {
+export function implementsUser(obj: any): obj is User {
     return (
         typeof obj === 'object' &&
         obj !== null &&

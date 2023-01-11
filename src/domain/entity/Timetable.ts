@@ -1,71 +1,61 @@
 import * as typeorm from "typeorm"
+import {Column, JoinColumn, ManyToOne} from "typeorm";
+import {User} from "./User";
 
+export enum DayOfWeek {
+    MON = "monday",
+    TUE = "tuesday",
+    WED = "wednesday",
+    THU = "thursday",
+    FRI = "friday",
+}
+
+export interface TimetableInterface {
+    readonly id?: number
+    user_id: number
+    day_of_week: DayOfWeek
+    period1: string | null
+    period2: string | null
+    period3: string | null
+    period4: string | null
+    period5: string | null
+}
 
 @typeorm.Entity()
-export class Timetable {
-
+export class Timetable implements TimetableInterface{
     @typeorm.PrimaryGeneratedColumn()
-    id!: number
+    readonly id?: number
+    @Column()
+    user_id: number
+    @Column({
+        type: "enum",
+        enum: DayOfWeek
+    })
+    day_of_week: DayOfWeek;
+    @Column({ type: 'varchar', nullable: true })
+    period1: string | null;
+    @Column({ type: 'varchar', nullable: true })
+    period2: string | null;
+    @Column({ type: 'varchar', nullable: true })
+    period3: string | null;
+    @Column({ type: 'varchar', nullable: true })
+    period4: string | null;
+    @Column({ type: 'varchar', nullable: true })
+    period5: string | null;
+    @ManyToOne(type => User, user => user.time_table,{
+        nullable: true
+    })
+    @JoinColumn({ name: "user_id"})
+    user!: User
 
-    @typeorm.Column()
-    user_id!: number
-    // mon
-    @typeorm.Column()
-    mon_period1?: string
-    @typeorm.Column()
-    mon_period2?: string
-    @typeorm.Column()
-    mon_period3?: string
-    @typeorm.Column()
-    mon_period4?: string
-    @typeorm.Column()
-    mon_period5?: string
-
-    // tue
-    @typeorm.Column()
-    tue_period1?: string
-    @typeorm.Column()
-    tue_period2?: string
-    @typeorm.Column()
-    tue_period3?: string
-    @typeorm.Column()
-    tue_period4?: string
-    @typeorm.Column()
-    tue_period5?: string
-
-    // wed
-    @typeorm.Column()
-    wed_period1?: string
-    @typeorm.Column()
-    wed_period2?: string
-    @typeorm.Column()
-    wed_period3?: string
-    @typeorm.Column()
-    wed_period4?: string
-    @typeorm.Column()
-    wed_period5?: string
-
-    // thu
-    @typeorm.Column()
-    thu_period1?: string
-    @typeorm.Column()
-    thu_period2?: string
-    @typeorm.Column()
-    thu_period3?: string
-    @typeorm.Column()
-    thu_period4?: string
-    @typeorm.Column()
-    thu_period5?: string
-
-    // fri
-    @typeorm.Column()
-    fri_period1?: string
-    @typeorm.Column()
-    fri_period2?: string
-    @typeorm.Column()
-    fri_period3?: string
-    @typeorm.Column()
-    fri_period4?: string
-    @typeorm.Column()
-    fri_period5?: string
+   constructor(user_id: number, day_of_week: DayOfWeek, period1: string | null, period2: string | null,
+               period3: string | null, period4: string | null, period5: string | null) {
+       this.user_id = user_id
+       this.day_of_week = day_of_week
+       this.period1 = period1
+       this.period2 = period2
+       this.period3 = period3
+       this.period4 = period4
+       this.period5 = period5
+   }
 }
