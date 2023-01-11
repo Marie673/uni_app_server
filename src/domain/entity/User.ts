@@ -57,7 +57,6 @@ export function implementsUser(obj: any): obj is User {
         typeof obj === 'object' &&
         obj !== null &&
         'uuid' in obj &&
-        'name' in obj &&
         'password' in obj
     )
 }
