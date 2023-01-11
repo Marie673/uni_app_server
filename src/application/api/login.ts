@@ -29,8 +29,9 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 })
 
 router.post('/update', async (req: express.Request, res: express.Response) => {
-    const user_ = extraction(req)
+    const user_ = extraction(req) // jwtからのユーザー認証の可能性 現時点では使用しない
     const user_id = Number(req.body.uuid)
+
     const user: Promise<User | null> = getUserById(user_id)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
