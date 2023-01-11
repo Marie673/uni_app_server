@@ -5,10 +5,7 @@ import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
-import {User, UserRole} from "./domain/entity/User";
-import {UserRepository} from "./domain/repository/User"
-import {insertTimetable, insertUser} from "./infrastructure/db/utils";
-import {DayOfWeek, Timetable} from "./domain/entity/Timetable";
+
 
 AppDataSource.initialize()
     .then(async () => {
@@ -25,8 +22,9 @@ AppDataSource.initialize()
 
         const port = process.env.PORT || 3000
         app.listen(port)
-        console.log("Express WebApi listening on port " + port)
+        // console.log("Express WebApi listening on port " + port)
 
+        /*
         const new_Data: User = {
             fmc_token: "tseafsefest",
             name: "oka",
@@ -71,6 +69,6 @@ AppDataSource.initialize()
         console.log(result)
 
         await userRepo.delete(2266003)
+        */
 
     })
-    .catch((error) => console.log(error))
