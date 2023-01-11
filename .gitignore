@@ -8,3 +8,5 @@
 db/data
 
 node_modules
+
+config/default.json
