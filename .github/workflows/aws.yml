@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
- build:
-   runs-on: ubuntu-latest
-   steps:
+ setup:
+  runs-on: ubuntu-latest
+  steps:
 
      # IP取得ライブラリをインストール
      - name: Public IP Install
@@ -36,7 +36,10 @@ jobs:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: ap-northeast-1
-         
+  
+ build:
+   runs-on: ubuntu-latest
+   steps:
       # ビルドする
      - name: Build
        run: |
@@ -52,7 +55,7 @@ jobs:
          && npm run build"
 
          # SSHのセキュリティグループを閉じる
-         # aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+         aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
          
  deployment:
   runs-on: ubuntu-latest
