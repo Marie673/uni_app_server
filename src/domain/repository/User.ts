@@ -26,4 +26,3 @@ export async function remove(user_id: number): Promise<boolean> {
 
     return false
 }
-
