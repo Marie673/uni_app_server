@@ -5,6 +5,8 @@ import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
+const config = require('config')
+config.env = process.env.NODE_ENV
 
 
 AppDataSource.initialize()
