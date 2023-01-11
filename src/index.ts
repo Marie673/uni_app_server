@@ -1,3 +1,4 @@
+import * as https from "https";
 import express from "express"
 import bodyParser from "body-parser";
 import api from "./application/api/index"
@@ -5,6 +6,10 @@ import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
+import * as http from "http";
+import * as fs from "fs";
+
+
 const config = require('config')
 config.env = process.env.NODE_ENV
 
@@ -12,6 +17,10 @@ config.env = process.env.NODE_ENV
 AppDataSource.initialize()
     .then(async () => {
         const app = express()
+        const server = https.createServer({
+            key: fs.readFileSync('./auth/server_key.pem'),
+            cert: fs.readFileSync('./auth/cert.pem')
+        }, app)
 
         app.set('view engine', 'ejs');
 
@@ -23,8 +32,9 @@ AppDataSource.initialize()
         app.use('/admin', admin)
 
         const port = process.env.PORT || 3000
-        app.listen(port)
-        // console.log("Express WebApi listening on port " + port)
+        server.listen(port, () =>
+            console.log("Express WebApi listening on port " + port))
+
 
         /*
         const new_Data: User = {
