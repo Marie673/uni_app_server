@@ -1,6 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn} from "typeorm"
 import {Timetable} from "./Timetable";
 import timetable from "../../application/api/timetable";
+import {AppDataSource} from "../../infrastructure/db/data-source";
 
 
 export enum UserRole {
@@ -48,6 +49,7 @@ export class User implements UserInterface{
         this.password = password
         this.fmc_token = fmc_token
     }
+
 }
 
 export function implementsUser(obj: any): obj is User {

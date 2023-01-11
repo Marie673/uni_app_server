@@ -6,6 +6,7 @@ import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
 import {User, UserRole} from "./domain/entity/User";
+import {UserRepository} from "./domain/repository/User"
 import {insertTimetable, insertUser} from "./infrastructure/db/utils";
 import {DayOfWeek, Timetable} from "./domain/entity/Timetable";
 
@@ -33,6 +34,7 @@ AppDataSource.initialize()
             user_id: 2266003,
             role: UserRole.MEMBER
         }
+
         const time_table: Timetable = {
             user_id: 2266003,
             day_of_week: DayOfWeek.MON,
@@ -43,15 +45,32 @@ AppDataSource.initialize()
             period5: "test_e",
             user: new_Data
         }
-        //await insertUser(new_Data)
+        const userRepo = new UserRepository()
+        await userRepo.save(new_Data)
         //await insertTimetable(time_table)
 
-        const result = await AppDataSource.getRepository(User)
+        let result = await AppDataSource.getRepository(User)
             .createQueryBuilder("user")
             .where("user.user_id=2266003")
             .getOne()
         // @ts-ignore
         console.log(result)
+
+        const next_Data: User = {
+            fmc_token: "tseafsefest",
+            name: "oka",
+            password: "test",
+            user_id: 2266003,
+            role: UserRole.MEMBER
+        }
+        await insertUser(next_Data)
+        result = await AppDataSource.getRepository(User)
+            .createQueryBuilder("user")
+            .where("user.user_id=2266003")
+            .getOne()
+        console.log(result)
+
+        await userRepo.delete(2266003)
 
     })
     .catch((error) => console.log(error))
