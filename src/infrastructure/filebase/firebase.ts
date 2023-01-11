@@ -1,4 +1,4 @@
-import { getFcmToken } from "../db/testdb";
+
 
 const admin = require('firebase-admin')
 const serviceAccount = require("./anpikakuninproject-firebase-adminsdk-k8ej5-2594dee450.json")
@@ -29,7 +29,7 @@ export async function testPushNotification(): Promise<void> {
     return
 }
 export async function testPushNotification1(uuid: number): Promise<void> {
-    let token = await getFcmToken(uuid)
+    let token = "" //await getFcmToken(uuid)
     console.log(token)
     const message = {
         notification: {
