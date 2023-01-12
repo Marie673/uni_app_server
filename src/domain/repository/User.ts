@@ -10,7 +10,8 @@ export async function save(user: User): Promise<boolean> {
     return true
 }
 
-export async function find(user_id: number) {
+export async function find(user_id: number): Promise<User | null> {
+    // console.log(await userRepository.findOneBy({user_id: user_id}))
     return await userRepository
         .findOneBy({user_id: user_id})
 }

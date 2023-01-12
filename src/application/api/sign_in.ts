@@ -6,9 +6,11 @@ import {User, UserRole} from "../../domain/entity/User";
 const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-
+    if (isNaN(Number(req.body.uuid))) {
+        return res.json({message: 'Bad request'})
+    }
     if (await UserRepository.find(req.body.uuid) != null) {
-        res.json({ success: false, message: 'Duplicate user_id.' })
+        return res.json({ success: false, message: 'Duplicate user_id.' })
     }
 
     const user: User = {
@@ -19,7 +21,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         fmc_token: req.body.fmc_token
     }
     await UserRepository.save(user)
-    res.json({ success: true, message: "Successful account creation"})
+    return res.json({ success: true, message: "Successful account creation"})
 })
 
 export default router
