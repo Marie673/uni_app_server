@@ -31,7 +31,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 })
 
 router.post('/update', async (req: express.Request, res: express.Response) => {
-    const user_ = extraction(req) // jwtからのユーザー認証の可能性 現時点では使用しない
+    // const user_ = extraction(req) // jwtからのユーザー認証の可能性 現時点では使用しない
     const user_id = Number(req.body.uuid)
 
     const user = await UserRepository.find(user_id)
