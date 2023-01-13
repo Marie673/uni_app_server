@@ -1,15 +1,15 @@
 import {AppDataSource} from "../../infrastructure/db/data-source";
 import {Timetable} from "../entity/Timetable";
 
-export class TimetableRepository{
-    timetableRepository = AppDataSource.getRepository(Timetable)
 
-    async save(timetable: Timetable): Promise<boolean> {
-        await this.timetableRepository.save(timetable)
-        return true
-    }
+const timetableRepository = AppDataSource.getRepository(Timetable)
 
-    async  find(user_id: number) {
+export async function save(timetable: Timetable): Promise<boolean> {
+    await timetableRepository.save(timetable)
+    return true
+}
 
-    }
+export async function find(user_id: number) {
+    await timetableRepository
+        .findBy({user_id: user_id})
 }

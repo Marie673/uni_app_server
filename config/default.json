@@ -1,5 +1,7 @@
 {
-
+  "authentication": {
+    "jwtSecret": "vxvawwark8vpf4axz17k"
+  },
   "db": {
     "host": "localhost",
     "port": 3306,

@@ -8,9 +8,11 @@ import * as UserRepository from "../../domain/repository/User";
 const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
+    if (isNaN(Number(req.body.uuid))) {
+        return res.json({message: "bad request"})
+    }
     const user_id = Number(req.body.uuid)
-    const user: Promise<User | null> = getUserById(user_id)
-    console.log("get login request:"+ user)
+    const user: User | null = await UserRepository.find(user_id)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
     }
@@ -29,15 +31,16 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 })
 
 router.post('/update', async (req: express.Request, res: express.Response) => {
-    const user_ = extraction(req)
+    // const user_ = extraction(req) // jwtからのユーザー認証の可能性 現時点では使用しない
     const user_id = Number(req.body.uuid)
-    const user: Promise<User | null> = getUserById(user_id)
+
+    const user = await UserRepository.find(user_id)
     if (!implementsUser(user)) {
         return res.json({ success: false, message: 'Authentication failed.' })
     }
 
     if (user.password == req.body.old_password) {
-        user.password = req.body.old_password
+        user.password = req.body.new_password
         await UserRepository.save(user)
         return res.status(200).json({ success: true })
     }
