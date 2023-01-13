@@ -1,11 +1,13 @@
 import express, {Response} from "express";
 import jwt from "jsonwebtoken";
 import {User} from "../../domain/entity/User";
+const config = require('config')
+config.env = process.env.NODE_ENV
 
 const app = express()
 // TODO: 鍵をべた書きは良くない
-app.set('superSecret', 'vxvawwark8vpf4axz17k')
-const jwtSecret = 'vxvawwark8vpf4axz17k'
+app.set('superSecret', config.authentication.jwtSecret)
+const jwtSecret = config.authentication.jwtSecret
 const jwtOptions = {
     algorithm: 'HS256',
     expiresIn: '24h',
@@ -14,13 +16,15 @@ const jwtOptions = {
 interface jwtInfo {
     user_id: number
     name: string
+    fmc_token: string
 }
 export function implementsJwtInfo(obj: any): obj is jwtInfo {
     return (
         typeof obj === 'object' &&
         obj !== null &&
         'user_id' in obj &&
-        'name' in obj
+        'name' in obj &&
+        'fmc_token' in obj
     )
 }
 
@@ -29,7 +33,8 @@ export function implementsJwtInfo(obj: any): obj is jwtInfo {
 export function generateToken(user: User) {
     const user_info: jwtInfo = {
         user_id: user.user_id,
-        name: user.name
+        name: user.name,
+        fmc_token: user.fmc_token
     }
     return jwt.sign(user_info, jwtSecret)
 }
@@ -66,6 +71,7 @@ export function extraction(req: express.Request): jwtInfo{
 
     return {
         user_id: decoded.user_id,
-        name: decoded.name
+        name: decoded.name,
+        fmc_token: decoded.fmc_token
     }
 }
