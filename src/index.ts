@@ -39,7 +39,7 @@ AppDataSource.initialize()
         app.use('/admin', admin)
 
         const port = process.env.PORT || 3000
-        server.listen(port, () =>
+        app.listen(port, () =>
             console.log("Express WebApi listening on port " + port))
 
 
