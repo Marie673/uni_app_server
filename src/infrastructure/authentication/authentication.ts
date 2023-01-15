@@ -9,7 +9,6 @@ const app = express()
 app.set('superSecret', config.authentication.jwtSecret)
 const jwtSecret = config.authentication.jwtSecret
 const jwtOptions = {
-    algorithm: 'HS256',
     expiresIn: '24h',
 }
 
@@ -36,21 +35,19 @@ export function generateToken(user: User) {
         name: user.name,
         fmc_token: user.fmc_token
     }
-    return jwt.sign(user_info, jwtSecret)
+    return jwt.sign(user_info, jwtSecret, jwtOptions)
 }
 
 // jwtの整合性確認
 export const authentication = (req: express.Request, res: Response, next: express.NextFunction) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token']
-
     if (!token) {
         return res.status(403).send({ success: false, message: 'No token provided.' })
     }
-    jwt.verify(token, jwtSecret, function (err: any, decoded: any) {
+    jwt.verify(token, jwtSecret, { algorithms: ['HS256']}, function (err: any, decoded: any) {
         if (err) {
             return res.json({ success: false, message: 'Invalid token.' })
         }
-        return
     })
     next()
 }
