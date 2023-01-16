@@ -52,11 +52,21 @@ export class User implements UserInterface{
 
 }
 
+export function implementsMinimumUser(obj: any): obj is User {
+    return (
+        typeof obj === 'object' &&
+            obj !== null &&
+            'user_id' in obj &&
+            'name' in obj &&
+            'fmc_token' in obj
+    )
+}
+
 export function implementsUser(obj: any): obj is User {
     return (
         typeof obj === 'object' &&
-        obj !== null &&
-        'user_id' in obj &&
-        'password' in obj
+            obj !== null &&
+            'user_id' in obj &&
+            'password' in obj
     )
 }

@@ -31,7 +31,7 @@ AppDataSource.initialize()
         app.use(express.urlencoded({ extended: true }))
 
         app.use((req: express.Request, res: express.Response, next) => {
-            console.log('%O %O %O', req.method , req.path,req.body)
+            console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip ,req.method , req.path, req.headers, req.body)
             next()
         })
 
@@ -39,7 +39,7 @@ AppDataSource.initialize()
         app.use('/admin', admin)
 
         const port = process.env.PORT || 3000
-        server.listen(port, () =>
+        app.listen(port, () =>
             console.log("Express WebApi listening on port " + port))
 
 
