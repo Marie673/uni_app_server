@@ -41,13 +41,16 @@ export function generateToken(user: User) {
 // jwtの整合性確認
 export const authentication = (req: express.Request, res: Response, next: express.NextFunction) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token']
+    console.log("token: %O", token)
     if (!token) {
         return res.status(403).send({ success: false, message: 'No token provided.' })
     }
     jwt.verify(token, jwtSecret, { algorithms: ['HS256']}, function (err: any, decoded: any) {
         if (err) {
+            console.log(err)
             return res.json({ success: false, message: 'Invalid token.' })
         }
+        console.log("jwt_decoded: %O",decoded)
     })
     next()
 }

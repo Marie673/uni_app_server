@@ -6,5 +6,11 @@ import news from "../../application/admin/news";
 const newsRepository = AppDataSource.getRepository(News)
 
 export async function getNews() {
-    return await newsRepository.find()
+    return newsRepository.createQueryBuilder()
+        .orderBy('news_id', "DESC")
+        .limit(10).getMany();
+}
+
+export async function postNews(news: News) {
+    await newsRepository.save(news)
 }
