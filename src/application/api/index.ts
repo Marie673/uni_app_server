@@ -7,6 +7,8 @@ import safety_check from "./safety_check"
 import login from "./login"
 import sign_in from "./sign_in"
 import news from "./news"
+import inquiry from "./inquiry";
+
 
 const app = express()
 const router = express.Router()
@@ -21,6 +23,7 @@ router.use('/safety-check', safety_check)
 router.use('/timetable', authentication, timetable)
 router.use('/disaster', authentication, disaster)
 router.use('/news', authentication, news)
+router.use('/inquiry', authentication, inquiry)
 
 
 export default router

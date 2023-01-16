@@ -1,7 +1,7 @@
 import express from "express";
-import * as NewsRepository from "../../domain/repository/news"
+import * as NewsRepository from "../../domain/repository/News"
 import {News} from "../../domain/entity/News";
-import {postNews} from "../../domain/repository/news";
+import {postNews} from "../../domain/repository/News";
 
 
 const router = express.Router()
