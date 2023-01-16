@@ -1,5 +1,5 @@
 import express from "express";
-import { User, implementsUser } from "../../domain/entity/User"
+import {User, implementsUser, implementsMinimumUser} from "../../domain/entity/User"
 import { extraction } from "../../infrastructure/authentication/authentication";
 import * as UserRepository from "../../domain/repository/User"
 import * as TimetableRepository from "../../domain/repository/Timetable";
@@ -26,7 +26,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     try {
         let user_info: any = extraction(req)
         console.log(user_info)
-        if (!implementsUser(user_info)) {
+        if (!implementsMinimumUser(user_info)) {
             return res.status(400).json({message: "invalid token"})
         }
         const user_id = user_info.user_id
@@ -37,20 +37,22 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         if (!implementsUser(user)) {
             return res.status(400).json({message: "invalid"})
         }
-        // TODO: infrastructureに更新する関数を作って呼び出し
-        const timetable: Timetable = {
-            user_id: Number(req.body.uuid),
-            day_of_week: req.body.day_of_week,
-            period1: req.body.period1,
-            period2: req.body.period2,
-            period3: req.body.period3,
-            period4: req.body.period4,
-            period5: req.body.period5,
-            user: user,
 
+        console.log(req.body)
+        const new_timetable: Timetable = {
+            user_id: Number(user_id),
+            day_of_week: req.body.timetable.day_of_week,
+            period1: req.body.timetable.period1,
+            period2: req.body.timetable.period2,
+            period3: req.body.timetable.period3,
+            period4: req.body.timetable.period4,
+            period5: req.body.timetable.period5,
+            user: user,
         }
-        await TimetableRepository.save(timetable)
-        return res.status(200)
+
+        console.log(new_timetable)
+        await TimetableRepository.save(new_timetable)
+        return res.status(200).json( {message: "success"} )
     } catch (err) {
         console.log(err)
         return res.status(400).json({message: err})

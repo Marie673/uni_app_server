@@ -31,7 +31,7 @@ AppDataSource.initialize()
         app.use(express.urlencoded({ extended: true }))
 
         app.use((req: express.Request, res: express.Response, next) => {
-            console.log('%O %O %O', req.method , req.path,req.body)
+            console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip ,req.method , req.path, req.headers, req.body)
             next()
         })
 
