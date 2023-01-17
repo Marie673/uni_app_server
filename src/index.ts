@@ -30,12 +30,14 @@ AppDataSource.initialize()
         app.use(express.json())
         app.use(express.urlencoded({ extended: true }))
 
+        app.get('/', (req, res) => {
+            // ACM用のターゲットのヘルスチェック返す用
+            return res.status(200).json()
+        })
+    
         app.use((req: express.Request, res: express.Response, next) => {
             console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip ,req.method , req.path, req.headers, req.body)
             next()
-        })
-        app.get('/', (req, res) => {
-            return res.status(200).json()
         })
 
         app.use('/api', api)
