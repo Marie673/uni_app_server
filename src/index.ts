@@ -34,6 +34,9 @@ AppDataSource.initialize()
             console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip ,req.method , req.path, req.headers, req.body)
             next()
         })
+        app.get('/', (req, res) => {
+            res.status(200)
+        })
 
         app.use('/api', api)
         app.use('/admin', admin)
