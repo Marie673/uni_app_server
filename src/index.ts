@@ -35,7 +35,7 @@ AppDataSource.initialize()
             next()
         })
         app.get('/', (req, res) => {
-            res.status(200)
+            return res.status(200)
         })
 
         app.use('/api', api)
