@@ -46,7 +46,9 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         user_id: Number(req.body.uuid),
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: crypto.createHash('sha256')
+            .update(req.body.password)
+            .digest('hex'),
         role: UserRole.MEMBER,
         fmc_token: req.body.fmc_token,
         emailVerifiedAt: false
