@@ -27,72 +27,32 @@ AppDataSource.initialize()
         app.set('view engine', 'ejs');
 
         // TODO: bodyがjsonじゃなかったときの処理
-        app.use(bodyParser.json())
-        app.use(express.json())
-        app.use(express.urlencoded({ extended: true }))
-    
-        app.get('/', (req, res) => {
-            // ACM用のターゲットのヘルスチェック返す用
-            return res.status(200).json()
-        })
+        try {
+            app.use(bodyParser.json())
+            app.use(express.json())
+            app.use(express.urlencoded({extended: true}))
 
-        app.use((req: express.Request, res: express.Response, next) => {
-            console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip, req.method, req.path, req.headers, req.body)
-            next()
-        })
 
-        app.use('/api', api)
-        app.use('/admin', admin)
+            app.get('/', (req, res) => {
+                // ACM用のターゲットのヘルスチェック返す用
+                return res.status(200).json()
+            })
 
-        const port = process.env.PORT || 3000
-        app.listen(port, () =>
-            console.log("Express WebApi listening on port " + port))
+            app.use((req: express.Request, res: express.Response, next) => {
+                console.log('ip: %O method: %O path: %O header: %O body: %O', req.ip, req.method, req.path, req.headers, req.body)
+                next()
+            })
 
-        /*
-        const new_Data: User = {
-            fmc_token: "tseafsefest",
-            name: "oka",
-            password: "asdlfasdfasdf",
-            user_id: 2266003,
-            role: UserRole.MEMBER
+            app.use('/api', api)
+            app.use('/admin', admin)
+
+
+            const port = process.env.PORT || 3000
+            app.listen(port, () =>
+                console.log("Express WebApi listening on port " + port))
         }
-
-        const time_table: Timetable = {
-            user_id: 2266003,
-            day_of_week: DayOfWeek.MON,
-            period1: "test_a",
-            period2: "test_b",
-            period3: "test_c",
-            period4: "test_d",
-            period5: "test_e",
-            user: new_Data
+        catch (e) {
+            console.log(e)
+            return
         }
-        const userRepo = new UserRepository()
-        await userRepo.save(new_Data)
-        //await insertTimetable(time_table)
-
-        let result = await AppDataSource.getRepository(User)
-            .createQueryBuilder("user")
-            .where("user.user_id=2266003")
-            .getOne()
-        // @ts-ignore
-        console.log(result)
-
-        const next_Data: User = {
-            fmc_token: "tseafsefest",
-            name: "oka",
-            password: "test",
-            user_id: 2266003,
-            role: UserRole.MEMBER
-        }
-        await insertUser(next_Data)
-        result = await AppDataSource.getRepository(User)
-            .createQueryBuilder("user")
-            .where("user.user_id=2266003")
-            .getOne()
-        console.log(result)
-
-        await userRepo.delete(2266003)
-        */
-
     })

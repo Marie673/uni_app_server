@@ -9,16 +9,21 @@ import {Timetable} from "../../domain/entity/Timetable";
 const router = express.Router()
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-    let user: any = extraction(req)
-    if (!implementsUser(user)) {
-        return res.status(400).json({ message: "invalid token" })
-    }
     try {
-        let timetables = await TimetableRepository.find(user.user_id)
-        return res.status(200).json(timetables)
+        let user: any = extraction(req)
+        if (!implementsUser(user)) {
+            return res.status(400).json({message: "invalid token"})
+        }
+        try {
+            let timetables = await TimetableRepository.find(user.user_id)
+            return res.status(200).json(timetables)
+        } catch (error: any) {
+            return res.status(400).json({message: error.message})
+        }
     }
-    catch (error: any) {
-        return res.status(400).json({ message: error.message })
+    catch (e) {
+        console.log(e)
+        return res.json()
     }
 })
 
