@@ -8,6 +8,7 @@ import login from "./login"
 import sign_in from "./sign_in"
 import news from "./news"
 import inquiry from "./inquiry";
+import register from "./register";
 
 
 const app = express()
@@ -16,6 +17,7 @@ const router = express.Router()
 app.use( bodyParser.json() )
 
 router.use('/sign-in', sign_in)
+router.use('/register', register)
 router.use('/login', login)
 
 router.use('/safety-check', safety_check)

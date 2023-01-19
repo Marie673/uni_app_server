@@ -3,6 +3,7 @@ import { User, implementsUser } from "../../domain/entity/User"
 import {getUserById} from "../../infrastructure/db/utils";
 import { generateToken, extraction } from "../../infrastructure/authentication/authentication"
 import * as UserRepository from "../../domain/repository/User";
+import crypto from "crypto";
 
 
 const router = express.Router()
@@ -17,7 +18,10 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         return res.json({ success: false, message: 'Authentication failed.' })
     }
 
-    if (user.user_id == req.body.uuid && user.password == req.body.password) {
+    let password = crypto.createHash('sha256')
+        .update(req.body.password)
+        .digest('hex')
+    if (user.user_id == req.body.uuid && user.password == password) {
         let token = generateToken(user)
         if (user.fmc_token != req.body.fmc_token) {
             user.fmc_token = req.body.fmc_token

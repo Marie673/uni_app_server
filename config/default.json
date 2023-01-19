@@ -1,6 +1,7 @@
 {
   "authentication": {
-    "jwtSecret": "vxvawwark8vpf4axz17k"
+    "jwtSecret": "vxvawwark8vpf4axz17k",
+    "register": "vxvawwark8vpf4axz17k"
   },
   "db": {
     "host": "localhost",

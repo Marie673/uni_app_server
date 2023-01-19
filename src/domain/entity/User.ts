@@ -25,6 +25,8 @@ export class User implements UserInterface{
 
     @Column()
     name: string;
+    @Column()
+    email: string;
 
     @Column()
     password: string;
@@ -38,16 +40,20 @@ export class User implements UserInterface{
 
     @Column({ type: 'varchar', nullable: true })
     fmc_token: string
+    @Column()
+    emailVerifiedAt: boolean
 
     @OneToMany(type => Timetable, (time_table) => time_table.user)
     time_table?: Timetable[]
 
-    constructor(user_id: number, name: string, password: string
-                , fmc_token: string) {
+    constructor(user_id: number, name: string, mail: string,password: string
+                , fmc_token: string, emailVerifiedAt: boolean) {
         this.user_id = user_id
         this.name = name
+        this.email = mail
         this.password = password
         this.fmc_token = fmc_token
+        this.emailVerifiedAt = emailVerifiedAt
     }
 
 }

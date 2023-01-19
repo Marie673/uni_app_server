@@ -7,6 +7,7 @@ test('insert data', async () => {
     AppDataSource.initialize().then(async () => {
         try {
             const new_Data: User = {
+                email: "", emailVerifiedAt: false,
                 fmc_token: "tseafsefest",
                 name: "oka",
                 password: "asdlfasdfasdf",
