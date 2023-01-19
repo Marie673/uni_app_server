@@ -9,6 +9,7 @@ config.env = process.env.NODE_ENV
 
 export const AppDataSource = new DataSource({
     type: "mysql",
+    charset: "utf8mb4",
     host: config.db.host,
     port: config.db.port,
     username: config.db.username,
