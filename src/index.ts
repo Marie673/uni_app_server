@@ -9,6 +9,7 @@ import {AppDataSource} from "./infrastructure/db/data-source";
 import * as http from "http";
 import * as fs from "fs";
 import {isNonEmptyString} from "firebase-admin/lib/utils/validator";
+import {sendMail} from "./infrastructure/authentication/mailer";
 
 
 const config = require('config')
@@ -46,7 +47,6 @@ AppDataSource.initialize()
         const port = process.env.PORT || 3000
         app.listen(port, () =>
             console.log("Express WebApi listening on port " + port))
-
 
         /*
         const new_Data: User = {

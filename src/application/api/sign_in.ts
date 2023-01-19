@@ -1,7 +1,11 @@
 import express from "express";
 import * as UserRepository from "../../domain/repository/User"
 import {User, UserRole} from "../../domain/entity/User";
+import {sendMail} from "../../infrastructure/authentication/mailer";
+import * as crypto from "crypto";
 
+const config = require('config')
+config.env = process.env.NODE_ENV
 
 const router = express.Router()
 
@@ -9,19 +13,54 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     if (isNaN(Number(req.body.uuid))) {
         return res.json({message: 'Bad request'})
     }
-    if (await UserRepository.find(req.body.uuid) != null) {
-        return res.json({ success: false, message: 'Duplicate user_id.' })
+    let reg_user = await UserRepository.find(req.body.uuid)
+    if (reg_user != null && reg_user.emailVerifiedAt) {
+        return res.status(422).json({ success: false, message: 'Duplicate user_id.' })
+    }
+
+    const email = req.body.email
+    let domain = email.split(`@`)[1]
+    if (domain != "e.hiroshima-cu.ac.jp") {
+        return res.json( {message: "大学のメールアドレスを使用してください。"})
+    }
+    function generateRegisterUrl(user_id: number) {
+        const appKey = config.authentication.register
+        const base_url = req.protocol + "://" + req.get('host') + "/api/register/"
+        let hash = crypto.createHash('sha1')
+            .update(email)
+            .digest('hex')
+        console.log(email, hash)
+        const now = new Date();
+        const expiration = now.setHours(now.getHours() + 1)
+        let url = base_url + user_id + '/' + hash +
+            "?expires=" + expiration
+        const signature = crypto.createHmac('sha256', appKey)
+            .update(url)
+            .digest('hex')
+        url += '&signature=' + signature
+
+        return url
     }
 
     const user: User = {
         user_id: Number(req.body.uuid),
         name: req.body.name,
+        email: req.body.email,
         password: req.body.password,
         role: UserRole.MEMBER,
-        fmc_token: req.body.fmc_token
+        fmc_token: req.body.fmc_token,
+        emailVerifiedAt: false
     }
     await UserRepository.save(user)
-    return res.json({ success: true, message: "Successful account creation"})
+
+    const url = generateRegisterUrl(user.user_id)
+    const sub = "メールアドレスの認証"
+    const text =
+        "下記のリンクへアクセスしてメールアドレスを認証してください\n\n"
+        + url
+    await sendMail(email, sub, text)
+
+    return res.json({ success: true, message: "メール認証を行ってください"})
 })
 
 export default router
