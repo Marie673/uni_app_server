@@ -9,28 +9,33 @@ import crypto from "crypto";
 const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-    if (isNaN(Number(req.body.uuid))) {
-        return res.json({message: "bad request"})
-    }
-    const user_id = Number(req.body.uuid)
-    const user: User | null = await UserRepository.find(user_id)
-    if (!implementsUser(user)) {
-        return res.json({ success: false, message: 'Authentication failed.' })
-    }
-
-    let password = crypto.createHash('sha256')
-        .update(req.body.password)
-        .digest('hex')
-    if (user.user_id == req.body.uuid && user.password == password) {
-        let token = generateToken(user)
-        if (user.fmc_token != req.body.fmc_token) {
-            user.fmc_token = req.body.fmc_token
-            await UserRepository.save(user)
+    try {
+        if (isNaN(Number(req.body.uuid))) {
+            return res.json({message: "bad request"})
         }
-        res.json({ success: true, message: 'Authentication successfully finished.', token: token })
+        const user_id = Number(req.body.uuid)
+        const user: User | null = await UserRepository.find(user_id)
+        if (!implementsUser(user)) {
+            return res.json({success: false, message: 'Authentication failed.'})
+        }
+
+        let password = crypto.createHash('sha256')
+            .update(req.body.password)
+            .digest('hex')
+        if (user.user_id == req.body.uuid && user.password == password) {
+            let token = generateToken(user)
+            if (user.fmc_token != req.body.fmc_token) {
+                user.fmc_token = req.body.fmc_token
+                await UserRepository.save(user)
+            }
+            res.json({success: true, message: 'Authentication successfully finished.', token: token})
+        } else {
+            res.json({success: false, message: 'Authentication failed.'})
+        }
     }
-    else {
-        res.json({ success: false, message: 'Authentication failed.' })
+    catch (e) {
+        console.log(e)
+        return res.json()
     }
 })
 
