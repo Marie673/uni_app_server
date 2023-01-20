@@ -9,7 +9,6 @@ db/data
 
 node_modules
 
-config/default.json
+/config/
 /auth/cert.pem
 /auth/server_key.pem
-
