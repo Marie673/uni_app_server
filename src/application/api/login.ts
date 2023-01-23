@@ -28,7 +28,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
                 user.fcm_token = req.body.fcm_token
                 await UserRepository.save(user)
             }
-            res.json({success: true, message: 'ログインに成功しました。', token: token})
+            res.json({succeed: true, message: 'ログインに成功しました。', token: token})
         } else {
             res.json({succeed: false, message: 'ユーザーID・パスワードが違います。'})
         }
