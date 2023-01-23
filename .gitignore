@@ -9,6 +9,6 @@ db/data
 
 node_modules
 
-/config/
 /auth/cert.pem
 /auth/server_key.pem
+/config/
