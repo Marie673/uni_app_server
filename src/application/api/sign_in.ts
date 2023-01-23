@@ -16,13 +16,13 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
         let reg_user = await UserRepository.find(req.body.uuid)
         if (reg_user != null && reg_user.emailVerifiedAt) {
-            return res.status(422).json({succeed: false, message: 'Duplicate user_id.'})
+            return res.status(422).json({succeed: false, message: "登録済みのメールアドレスです。"})
         }
 
         const email = req.body.email
         let domain = email.split(`@`)[1]
         if (domain != "e.hiroshima-cu.ac.jp") {
-            return res.json({message: "大学のメールアドレスを使用してください。"})
+            return res.json({succeed: false, message: "大学のメールアドレスを使用してください。"})
         }
 
         function generateRegisterUrl(user_id: number) {
