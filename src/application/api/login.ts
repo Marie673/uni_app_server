@@ -20,7 +20,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
 
         if (!user.emailVerifiedAt) {
-            return res.status(400).json({succeed: false, message: "メールアドレスの認証をしてください。"})
+            return res.json({succeed: false, message: "メールアドレスの認証をしてください。"})
         }
 
         let password = crypto.createHash('sha256')
