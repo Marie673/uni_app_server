@@ -19,6 +19,10 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             return res.json({succeed: false, message: 'ユーザーID・パスワードが違います。'})
         }
 
+        if (!user.emailVerifiedAt) {
+            return res.status(400).json({succeed: false, message: "メールアドレスの認証をしてください。"})
+        }
+
         let password = crypto.createHash('sha256')
             .update(req.body.password)
             .digest('hex')
