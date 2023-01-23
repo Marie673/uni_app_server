@@ -16,7 +16,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
         let reg_user = await UserRepository.find(req.body.uuid)
         if (reg_user != null && reg_user.emailVerifiedAt) {
-            return res.status(422).json({success: false, message: 'Duplicate user_id.'})
+            return res.status(422).json({succeed: false, message: 'Duplicate user_id.'})
         }
 
         const email = req.body.email
@@ -65,7 +65,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             + url
         await sendMail(email, sub, text)
 
-        return res.json({success: true, message: "メール認証を行ってください"})
+        return res.json({succeed: true, message: "メール認証を行ってください"})
     }
     catch (e) {
         console.log(e)
