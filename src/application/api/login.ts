@@ -24,8 +24,8 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             .digest('hex')
         if (user.user_id == req.body.uuid && user.password == password) {
             let token = generateToken(user)
-            if (user.fcm_token != req.body.fmc_token) {
-                user.fcm_token = req.body.fmc_token
+            if (user.fcm_token != req.body.fcm_token) {
+                user.fcm_token = req.body.fcm_token
                 await UserRepository.save(user)
             }
             res.json({success: true, message: 'ログインに成功しました。', token: token})

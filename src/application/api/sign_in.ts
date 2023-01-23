@@ -53,7 +53,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
                 .update(req.body.password)
                 .digest('hex'),
             role: UserRole.MEMBER,
-            fcm_token: req.body.fmc_token,
+            fcm_token: req.body.fcm_token,
             emailVerifiedAt: false
         }
         await UserRepository.save(user)
