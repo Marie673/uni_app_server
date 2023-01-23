@@ -33,7 +33,7 @@ export function generateToken(user: User) {
     const user_info: jwtInfo = {
         user_id: user.user_id,
         name: user.name,
-        fmc_token: user.fmc_token
+        fmc_token: user.fcm_token
     }
     return jwt.sign(user_info, jwtSecret, jwtOptions)
 }

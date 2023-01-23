@@ -8,7 +8,7 @@ test('insert data', async () => {
         try {
             const new_Data: User = {
                 email: "", emailVerifiedAt: false,
-                fmc_token: "tseafsefest",
+                fcm_token: "tseafsefest",
                 name: "oka",
                 password: "asdlfasdfasdf",
                 user_id: 2266003,

@@ -16,7 +16,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     }
     catch (e) {
         console.log(e)
-        return res.json()
+        return res.json({})
     }
 })
 
@@ -31,11 +31,11 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             title: "test"
         }
         await postNews(news)
-        return res.status(200).json({message: "success"})
+        return res.status(200).json({succeed: true, message: "投稿が完了しました。"})
     }
     catch (e) {
         console.log(e)
-        return res.json()
+        return res.json({succeed: false, message: "投稿に失敗しました。"})
     }
 })
 export default router

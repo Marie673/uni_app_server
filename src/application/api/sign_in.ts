@@ -45,6 +45,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
 
         const user: User = {
+            safety_check: false,
             user_id: Number(req.body.uuid),
             name: req.body.name,
             email: req.body.email,
@@ -52,7 +53,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
                 .update(req.body.password)
                 .digest('hex'),
             role: UserRole.MEMBER,
-            fmc_token: req.body.fmc_token,
+            fcm_token: req.body.fmc_token,
             emailVerifiedAt: false
         }
         await UserRepository.save(user)

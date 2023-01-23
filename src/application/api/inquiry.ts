@@ -13,8 +13,6 @@ router.get('/', async (req: express.Request, res: express.Response) => {
 
 router.post('/', async (req: express.Request, res: express.Response) => {
     try {
-
-
         let user: any = extraction(req)
         const inquiry: Inquiry = {
             user_id: user.user_id,
@@ -24,11 +22,11 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             isPublished: false,
         }
         await postInquiry(inquiry)
-        return res.status(200).json({message: "success"})
+        return res.status(200).json({succeed: true})
     }
     catch (e) {
         console.log(e)
-        return res.status(400).json()
+        return res.status(400).json({succeed: false})
     }
 })
 export default router

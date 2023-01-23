@@ -6,10 +6,10 @@ import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
-import * as http from "http";
 import * as fs from "fs";
-import {isNonEmptyString} from "firebase-admin/lib/utils/validator";
-import {sendMail} from "./infrastructure/authentication/mailer";
+
+import root from "./application/root";
+
 
 
 const config = require('config')
@@ -19,10 +19,6 @@ config.env = process.env.NODE_ENV
 AppDataSource.initialize()
     .then(async () => {
         const app = express()
-        const server = https.createServer({
-            key: fs.readFileSync('./auth/server_key.pem'),
-            cert: fs.readFileSync('./auth/cert.pem')
-        }, app)
 
         app.set('view engine', 'ejs');
 
@@ -45,6 +41,7 @@ AppDataSource.initialize()
 
             app.use('/api', api)
             app.use('/admin', admin)
+            app.use('/root', root)
 
 
             const port = process.env.PORT || 3000

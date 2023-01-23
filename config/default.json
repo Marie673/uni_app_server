@@ -9,5 +9,8 @@
     "username": "user",
     "password": "password",
     "database": "testdb"
+  },
+  "root": {
+    "token": "aasSSFEHsldfseIS"
   }
 }
