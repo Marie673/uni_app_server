@@ -1,7 +1,10 @@
 const nodemailer = require("nodemailer")
+const config = require('config')
+config.env = process.env.NODE_ENV
 
-const mail = 'hcu.uniapp@gmail.com'
-const pass = "facyksaowpjgwryf"
+
+const mail = config.mailer.email
+const pass = config.mailer.passowrd
 
 const transporter = nodemailer.createTransport({
     service: "Gmail",
