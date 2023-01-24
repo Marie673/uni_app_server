@@ -16,13 +16,13 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
         let reg_user = await UserRepository.find(req.body.uuid)
         if (reg_user != null && reg_user.emailVerifiedAt) {
-            return res.status(422).json({success: false, message: 'Duplicate user_id.'})
+            return res.status(422).json({succeed: false, message: "登録済みのメールアドレスです。"})
         }
 
         const email = req.body.email
         let domain = email.split(`@`)[1]
         if (domain != "e.hiroshima-cu.ac.jp") {
-            return res.json({message: "大学のメールアドレスを使用してください。"})
+            return res.json({succeed: false, message: "大学のメールアドレスを使用してください。"})
         }
 
         function generateRegisterUrl(user_id: number) {
@@ -45,6 +45,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
 
         const user: User = {
+            safety_check: false,
             user_id: Number(req.body.uuid),
             name: req.body.name,
             email: req.body.email,
@@ -52,7 +53,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
                 .update(req.body.password)
                 .digest('hex'),
             role: UserRole.MEMBER,
-            fmc_token: req.body.fmc_token,
+            fcm_token: req.body.fcm_token,
             emailVerifiedAt: false
         }
         await UserRepository.save(user)
@@ -64,7 +65,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             + url
         await sendMail(email, sub, text)
 
-        return res.json({success: true, message: "メール認証を行ってください"})
+        return res.json({succeed: true, message: "メール認証を行ってください"})
     }
     catch (e) {
         console.log(e)

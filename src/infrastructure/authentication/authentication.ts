@@ -15,7 +15,7 @@ const jwtOptions = {
 interface jwtInfo {
     user_id: number
     name: string
-    fmc_token: string
+    fcm_token: string
 }
 export function implementsJwtInfo(obj: any): obj is jwtInfo {
     return (
@@ -23,7 +23,7 @@ export function implementsJwtInfo(obj: any): obj is jwtInfo {
         obj !== null &&
         'user_id' in obj &&
         'name' in obj &&
-        'fmc_token' in obj
+        'fcm_token' in obj
     )
 }
 
@@ -33,7 +33,7 @@ export function generateToken(user: User) {
     const user_info: jwtInfo = {
         user_id: user.user_id,
         name: user.name,
-        fmc_token: user.fmc_token
+        fcm_token: user.fcm_token
     }
     return jwt.sign(user_info, jwtSecret, jwtOptions)
 }
@@ -72,6 +72,6 @@ export function extraction(req: express.Request): jwtInfo{
     return {
         user_id: decoded.user_id,
         name: decoded.name,
-        fmc_token: decoded.fmc_token
+        fcm_token: decoded.fcm_token
     }
 }

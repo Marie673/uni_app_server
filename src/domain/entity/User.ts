@@ -14,7 +14,7 @@ export interface UserInterface {
     name: string
     password: string
     role: UserRole
-    fmc_token: string
+    fcm_token: string
     time_table?: Timetable[] | null
 }
 
@@ -39,9 +39,11 @@ export class User implements UserInterface{
     role: UserRole = UserRole.MEMBER;
 
     @Column({ type: 'varchar', nullable: true })
-    fmc_token: string
+    fcm_token: string
     @Column()
     emailVerifiedAt: boolean
+    @Column()
+    safety_check: boolean = false
 
     @OneToMany(type => Timetable, (time_table) => time_table.user)
     time_table?: Timetable[]
@@ -52,7 +54,7 @@ export class User implements UserInterface{
         this.name = name
         this.email = mail
         this.password = password
-        this.fmc_token = fmc_token
+        this.fcm_token = fmc_token
         this.emailVerifiedAt = emailVerifiedAt
     }
 

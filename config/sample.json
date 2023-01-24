@@ -1,0 +1,20 @@
+{
+  "mailer": {
+    "email": "your email",
+    "password": "password"
+  },
+  "authentication": {
+    "jwtSecret": "PutTheSecretKey",
+    "register": "PutTheSecretKey"
+  },
+  "db": {
+    "host": "localhost",
+    "port": 3306,
+    "username": "user",
+    "password": "password",
+    "database": "testdb"
+  },
+  "root": {
+    "token": "PutTheSecretKey"
+  }
+}
