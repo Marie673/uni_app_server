@@ -11,4 +11,4 @@ node_modules
 
 /auth/cert.pem
 /auth/server_key.pem
-/config/
+/config/default.json
