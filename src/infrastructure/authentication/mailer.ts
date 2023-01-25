@@ -4,7 +4,7 @@ config.env = process.env.NODE_ENV
 
 
 const mail = config.mailer.email
-const pass = config.mailer.passowrd
+const pass = config.mailer.password
 
 const transporter = nodemailer.createTransport({
     service: "Gmail",
