@@ -7,10 +7,10 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     // TODO: statusの設定
     let status = false
     if (status) {
-        return res.status(200).json({check: 'True'})
+        return res.json({check: 'True'})
     }
     else {
-        return res.status(200).json({check: 'False'})
+        return res.json({check: 'False'})
     }
 })
 

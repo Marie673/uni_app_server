@@ -14,10 +14,10 @@ router.get('/:id/:hash', async (req: express.Request, res: express.Response) => 
         const user_id = Number(req.params.id)
         const user = await UserRepository.find(user_id)
         if (user == null) {
-            return res.status(422).send("このURLは正しくありません。")
+            return res.send("このURLは正しくありません。")
         }
         if (user.emailVerifiedAt) {
-            return res.status(422).send("すでに登録が完了しています。")
+            return res.send("すでに登録が完了しています。")
         }
 
         const now = new Date()
@@ -37,13 +37,13 @@ router.get('/:id/:hash', async (req: express.Request, res: express.Response) => 
         if (!isCorrectHash || !isCorrectSignature || !isExpired) {
             console.log("status: {isCorrectHash: %O, isCorrectSignature: %O, isExpired: %O}",
                 isCorrectHash, isCorrectSignature, isExpired)
-            return res.status(422).send('このURLは既に有効期限切れか、正しくありません。')
+            return res.send('このURLは既に有効期限切れか、正しくありません。')
         }
 
         user.emailVerifiedAt = true
         await UserRepository.save(user)
 
-        return res.status(200).send("認証に成功しました。")
+        return res.send("認証に成功しました。")
     }
     catch (e) {
         console.log(e)

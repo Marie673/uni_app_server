@@ -16,7 +16,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         }
         let reg_user = await UserRepository.find(req.body.uuid)
         if (reg_user != null && reg_user.emailVerifiedAt) {
-            return res.status(422).json({succeed: false, message: "登録済みのメールアドレスです。"})
+            return res.json({succeed: false, message: "登録済みのメールアドレスです。"})
         }
 
         const email = req.body.email

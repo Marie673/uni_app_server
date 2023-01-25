@@ -12,13 +12,13 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     try {
         let user: any = extraction(req)
         if (!implementsUser(user)) {
-            return res.status(400).json({message: "invalid token"})
+            return res.json({message: "invalid token"})
         }
         try {
             let timetables = await TimetableRepository.find(user.user_id)
-            return res.status(200).json(timetables)
+            return res.json(timetables)
         } catch (error: any) {
-            return res.status(400).json({message: error.message})
+            return res.json({message: error.message})
         }
     }
     catch (e) {
@@ -32,15 +32,15 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         let user_info: any = extraction(req)
         console.log(user_info)
         if (!implementsMinimumUser(user_info)) {
-            return res.status(400).json({message: "invalid token"})
+            return res.json({message: "invalid token"})
         }
         const user_id = user_info.user_id
         if (isNaN(user_id)) {
-            return res.status(400).json({message: "invalid"})
+            return res.json({message: "invalid"})
         }
         const user: User | null = await UserRepository.find(user_id)
         if (!implementsUser(user)) {
-            return res.status(400).json({message: "invalid"})
+            return res.json({message: "invalid"})
         }
 
         console.log(req.body)
@@ -57,10 +57,10 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 
         console.log(new_timetable)
         await TimetableRepository.save(new_timetable)
-        return res.status(200).json( {message: "success"} )
+        return res.json( {message: "success"} )
     } catch (err) {
         console.log(err)
-        return res.status(400).json({message: err})
+        return res.json({message: err})
     }
 })
 

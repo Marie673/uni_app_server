@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/', async (req: express.Request, res: express.Response) => {
 
-    return res.status(200).json({})
+    return res.json({})
 })
 
 router.post('/', async (req: express.Request, res: express.Response) => {
@@ -22,11 +22,11 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             isPublished: false,
         }
         await postInquiry(inquiry)
-        return res.status(200).json({succeed: true})
+        return res.json({succeed: true})
     }
     catch (e) {
         console.log(e)
-        return res.status(400).json({succeed: false})
+        return res.json({succeed: false})
     }
 })
 export default router

@@ -56,14 +56,14 @@ router.post('/update', async (req: express.Request, res: express.Response) => {
         if (user.password == req.body.old_password) {
             user.password = req.body.new_password
             await UserRepository.save(user)
-            return res.status(200).json({succeed: true})
+            return res.json({succeed: true})
         } else {
-            return res.status(200).json({succeed: false})
+            return res.json({succeed: false})
         }
     }
     catch (e) {
         console.error(e)
-        return res.status(400).json({succeed: false, message: "認証に失敗しました。"})
+        return res.json({succeed: false, message: "認証に失敗しました。"})
     }
 })
 
