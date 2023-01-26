@@ -26,4 +26,3 @@ export async function pushNotification(
 
     await messaging.sendMulticast(message)
 }
-
