@@ -27,3 +27,12 @@ export async function remove(user_id: number): Promise<boolean> {
 
     return false
 }
+
+export async function getFcmToken(user_id: number) {
+    let fcm_token = await userRepository.findOneBy({user_id: user_id})
+
+}
+
+export async function getAllUserFcmTokens() {
+
+}
