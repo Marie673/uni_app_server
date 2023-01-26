@@ -12,11 +12,14 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     try {
         let user_info: any = extraction(req)
         if (!implementsMinimumUser(user_info)) {
+            console.log(user_info)
             return res.json({message: "invalid token1"})
         }
         const user_id = user_info.user_id
         if (isNaN(user_id)) {
+            console.log(user_id)
             return res.json({message: "invalid token2"})
+
         }
         const user: User | null = await UserRepository.find(user_id)
         let status = user?.safety_check
