@@ -1,4 +1,3 @@
-import * as https from "https";
 import express from "express"
 import bodyParser from "body-parser";
 import api from "./application/api/index"
@@ -6,10 +5,10 @@ import admin from "./application/admin/index"
 import "reflect-metadata"
 
 import {AppDataSource} from "./infrastructure/db/data-source";
-import * as fs from "fs";
+import * as UserRepository from "./domain/repository/User"
 
 import root from "./application/root";
-
+import {User, UserRole} from "./domain/entity/User";
 
 
 const config = require('config')
@@ -47,6 +46,7 @@ AppDataSource.initialize()
             const port = process.env.PORT || 3000
             app.listen(port, () =>
                 console.log("Express WebApi listening on port " + port))
+
         }
         catch (e) {
             console.log(e)

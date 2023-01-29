@@ -48,7 +48,7 @@ router.get('/page/:page', async (req: express.Request, res: express.Response) =>
                 .take(10)
                 .skip((page - 1) * 10)
                 .getMany()
-
+            console.log(inquiry)
             let user_name = []
             for (let i = 0; i < inquiry.length; i++) {
                 user_name.push(await getUserById(inquiry[i].user_id))
