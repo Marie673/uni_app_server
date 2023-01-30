@@ -48,9 +48,11 @@ AppDataSource.initialize()
             app.listen(port, () =>
                 console.log("Express WebApi listening on port " + port))
 
+            /*
             const a = await GoogleSpreadsheetService.getInstance()
             console.log("testtest")
             console.log(await a.getRows())
+             */
 
         }
         catch (e) {

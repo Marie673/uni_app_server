@@ -1,7 +1,7 @@
-import bodyParser from "body-parser";
-
 const admin = require('firebase-admin')
-const serviceAccount = require("./anpikakuninproject-firebase-adminsdk-k8ej5-2594dee450.json")
+const serviceAccount = require("./anpikakunin.json")
+
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 })

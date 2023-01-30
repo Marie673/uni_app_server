@@ -16,5 +16,10 @@
   },
   "root": {
     "token": "PutTheSecretKey"
+  },
+  "googleAPI": {
+    "sheetID": "sheet ID",
+    "email": "google service account email",
+    "private_key": "google private key"
   }
 }
