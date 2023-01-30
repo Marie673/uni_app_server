@@ -66,7 +66,7 @@ export function implementsMinimumUser(obj: any): obj is User {
             obj !== null &&
             'user_id' in obj &&
             'name' in obj &&
-            'fmc_token' in obj
+            'fcm_token' in obj
     )
 }
 

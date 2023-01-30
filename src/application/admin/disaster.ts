@@ -39,7 +39,7 @@ router.get('/page/:page', async (req: express.Request, res: express.Response) =>
         res.render('pages/admin/error/value_error')
     } else {
         const [_, count] = await AppDataSource.getRepository(Disaster).findAndCount()
-        if (count < page * 10) {
+        if (count == 0) {
             res.render('pages/admin/error/value_error')
         } else {
             const disaster = await AppDataSource.getRepository(Disaster)

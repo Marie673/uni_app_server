@@ -10,9 +10,9 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     try {
         let news = await NewsRepository.getNews()
         if (news == null) {
-            return res.status(200).json({message: "no news"})
+            return res.json({message: "no news"})
         }
-        return res.status(200).json({news})
+        return res.json({news})
     }
     catch (e) {
         console.log(e)
@@ -31,7 +31,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             title: "test"
         }
         await postNews(news)
-        return res.status(200).json({succeed: true, message: "投稿が完了しました。"})
+        return res.json({succeed: true, message: "投稿が完了しました。"})
     }
     catch (e) {
         console.log(e)

@@ -5,7 +5,6 @@ import {insertUser} from "../../infrastructure/db/utils";
 
 const inquiryRepository = AppDataSource.getRepository(Inquiry)
 
-
 export async function getInquiry () {
 
 }
