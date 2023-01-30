@@ -1,5 +1,6 @@
 const admin = require('firebase-admin')
-const serviceAccount = require("./anpikakunin.json")
+import * as serviceAccount from "./anpikakunin.json"
+// const serviceAccount = require("./anpikakunin.json")
 
 
 admin.initializeApp({
