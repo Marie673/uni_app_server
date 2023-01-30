@@ -12,4 +12,4 @@ node_modules
 /auth/cert.pem
 /auth/server_key.pem
 /config/default.json
-/anpikakunin.json
+/src/infrastructure/filebase/anpikakunin.json
