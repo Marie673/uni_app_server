@@ -9,6 +9,7 @@ import * as UserRepository from "./domain/repository/User"
 
 import root from "./application/root";
 import {User, UserRole} from "./domain/entity/User";
+import {GoogleSpreadsheetService} from "./infrastructure/googleAPI/spreadsheet";
 
 
 const config = require('config')
@@ -46,6 +47,10 @@ AppDataSource.initialize()
             const port = process.env.PORT || 3000
             app.listen(port, () =>
                 console.log("Express WebApi listening on port " + port))
+
+            const a = await GoogleSpreadsheetService.getInstance()
+            console.log("testtest")
+            console.log(await a.getRows())
 
         }
         catch (e) {
